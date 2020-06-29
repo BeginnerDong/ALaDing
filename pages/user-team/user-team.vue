@@ -24,8 +24,10 @@
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
 					</view>
 					<view class="color6 d-flex a-center">
-						<view>微信号：ikahdhiu6876</view>
-						<view class="sign4 ml-2">复制</view>
+						<view>微信号：{{item.relationUser&&item.relationUser[0]&&item.relationUser[0].info
+						&&item.relationUser[0].info.wechat!=''?item.relationUser[0].info.wechat:'暂未填写'}}</view>
+						<view class="sign4 ml-2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].info
+						&&item.relationUser[0].info.wechat!=''" @click="getClipboardData(0,index)">复制</view>
 					</view>
 				</view>
 			</view>
@@ -47,8 +49,9 @@
 					</view>
 					<!-- ---------添加--------- -->
 					<view class="color6 d-flex a-center">
-						<view>微信号：ikahdhiu6876</view>
-						<view class="sign4 ml-2">复制</view>
+						<view v-if="userData.behavior==2">微信号：{{item.relationUser&&item.relationUser[0]&&item.relationUser[0].info
+						&&item.relationUser[0].info.wechat!=''?item.relationUser[0].info.wechat:'暂未填写'}}</view>
+						<view class="sign4 ml-2" @click="getClipboardData(1,index)">复制</view>
 					</view>
 					<!-- ---------------添加------------- -->
 					<view class="color6">注册时间：{{item.create_time}}</view>
@@ -76,7 +79,8 @@
 				mainData:[],
 				highUserData:[],
 				daoshiNum:0,
-				zhuboNum:0
+				zhuboNum:0,
+				userData:{}
 			}
 		},
 		
@@ -84,7 +88,7 @@
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
-			self.$Utils.loadAll(['getMainData','getHighUserData'], self);
+			self.$Utils.loadAll(['getMainData','getHighUserData','getUserData'], self);
 		},
 		
 		onReachBottom() {
@@ -97,6 +101,30 @@
 		},
 		
 		methods: {
+			
+			
+			getUserData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userData = res.info.data[0];
+					}
+					self.$Utils.finishFunc('getUserData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
+			
+			getClipboardData(type,index){
+				const self = this;
+				uni.setClipboardData({
+				    data: type==0?self.highUserData[index].parent_no:self.mainData[index].child_no,
+				    success: function () {
+				        console.log('success');
+				    }
+				});
+			},
 			
 			getHighUserData() {
 				const self = this;
