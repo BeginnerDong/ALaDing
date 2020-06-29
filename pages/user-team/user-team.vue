@@ -1,13 +1,13 @@
 <template>
-	<view class="line-h">
+	<view class="line-h position-relative pt-3">
 		<view class="bg"></view>
 		
 		<view class="mx-3 bg-white rounded10 position-relative mt-5 shadow py-5 d-flex">
-			<view class="text-center w-50 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList'}})">
+			<view class="text-center w-50 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=1'}})">
 				<view class="font-40 color2 pb-3 font-w">{{zhuboNum}}</view>
 				<view class="font-24 color2">我的主播 ></view>
 			</view>
-			<view class="text-center w-50" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList'}})">
+			<view class="text-center w-50" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=2'}})">
 				<view class="font-40 color2 pb-3 font-w">{{daoshiNum}}</view>
 				<view class="font-24 color2">我的导师 ></view>
 			</view>
@@ -41,8 +41,8 @@
 			<view class="font-28 color2 pt-4">今日数据</view>
 			<view class="item d-flex a-center py-3 borderB-f5" v-if="mainData.length>0" v-for="(item,index) of mainData" :key="item.id">
 				<image style="border-radius: 50%;overflow: hidden;" :src="item.relationUser&&item.relationUser[0]?item.relationUser[0].headImgUrl:''" mode=""></image>
-				<view class="font-26 pl-2 flex-1">
-					<view class="d-flex a-center pb-3">
+				<view class="font-26 pl-2 flex-1 d-flex flex-column j-sb" style="min-height: 100rpx;">
+					<view class="d-flex a-center">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
 						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
@@ -205,7 +205,7 @@
 <style>
 page{background-color: #f5f5f5;}
 	
-.bg{height: 160rpx;background-color: #FF7B8E;position: fixed;top: 0;width: 100%;}
+.bg{height: 200rpx;background-color: #FF7B8E;position: absolute;top: 0;width: 100%;}
 
 .zb::before{content: '';height: 50rpx;border-left: 1px dashed #d5d5d5;position: absolute;right: 0;top: 50%;margin-top: -25rpx;}
 

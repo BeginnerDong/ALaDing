@@ -1,6 +1,6 @@
 <template>
 	<view class="user" v-if="showAll">
-		<view class="head line-h ">
+		<view class="head line-h">
 			<view class="userCon px-3 py-3 d-flex a-center">
 				<image style="border-radius: 50%;overflow: hidden;" :src="userData.headImgUrl!=''?userData.headImgUrl:''" mode=""></image>
 				<view class="colorf ml-2 flex-1">
@@ -267,4 +267,5 @@
 		color: #000000;
 		background: none;
 	}
+	.user{padding-bottom: 120rpx;}
 </style>

@@ -1,13 +1,15 @@
 <template>
 	<view>
-		<view class="mx-3 rounded10 shadow-sm mt-2 course-item" v-for="(item,index) of mainData" :key="item.id"
-		 :data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails?id='+$event.currentTarget.dataset.id}})">
-			<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image>
-			<view class="px-2 line-h">
-				<view class="py-3 font-30 color2">{{item.title}}</view>
-				<view class="d-flex a-center pb-3">
-					<view class="price font-34 pr-1">{{item.price}}</view>
-					<view class="sign">{{item.behavior==1?'主播':'导师'}}</view>
+		<view class="courseBox">
+			<view class="mx-3 rounded10 shadow-sm mt-2 course-item" v-for="(item,index) of mainData" :key="item.id"
+			 :data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails?id='+$event.currentTarget.dataset.id}})">
+				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image>
+				<view class="px-2 line-h">
+					<view class="py-3 font-30 color2">{{item.title}}</view>
+					<view class="d-flex a-center pb-3">
+						<view class="price font-34 pr-1">{{item.price}}</view>
+						<view class="sign">{{item.behavior==1?'主播':'导师'}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -79,7 +81,7 @@
 </script>
 
 <style>
+	.courseBox{padding-bottom: 120rpx;}
 .course-item{overflow: hidden;}
 .course-item image{width: 100%;height: 300rpx;}
-
 </style>

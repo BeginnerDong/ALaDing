@@ -55,6 +55,7 @@
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
 			self.$Utils.loadAll(['getMainData'], self);
+			self.titCurrent = options.id;
 		},
 		onReachBottom() {
 			console.log('onReachBottom')
