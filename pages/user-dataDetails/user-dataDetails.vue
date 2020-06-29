@@ -7,42 +7,13 @@
 				<view class="th">获得佣金</view>
 				<view class="th">平台奖励</view>
 			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
+			<view class="tr" v-for="item of mainData">
+				<view class="td">{{item.create_time}}</view>
+				<view class="td">{{item.order}}</view>
+				<view class="td">{{item.balance}}</view>
+				<view class="td">{{item.reward}}</view>
 			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
-			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
-			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
-			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
-			</view>
-			<view class="tr">
-				<view class="td">2020.06.23</view>
-				<view class="td">0</view>
-				<view class="td">0</view>
-				<view class="td">369</view>
-			</view>
+			
 		</view>
 	</view>
 </template>
@@ -51,13 +22,60 @@
 	export default {
 		data() {
 			return {
+				Router:this.$Router,
 				
+				mainData:[],
 			}
 		},
+		
+		onLoad(options) {
+			const self = this;
+			self.user_no = options.user_no;
+			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+			self.$Utils.loadAll(['getMainData'], self)
+		},
+			
+		
+		onReachBottom() {
+			console.log('onReachBottom')
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
 			
-		}
-	}
+			getMainData(isNew) {
+				const self = this;
+				if (isNew) {
+					self.mainData = [];
+					self.paginate = {
+						count: 0,
+						currentPage: 1,
+						pagesize: 10,
+						is_page: true,
+					};
+				};
+				const postData = {};
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = {
+					user_no:self.user_no,
+					user_type:0
+				};
+				postData.tokenFuncName = 'getProjectToken'
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+					}
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.statisticsGet(postData, callback);
+			},
+		},
+		
+	};
 </script>
 
 <style>

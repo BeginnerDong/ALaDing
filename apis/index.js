@@ -188,9 +188,34 @@ export default {
 		};
 		http.HTTP(allParams);
 	},
+	
+	commonUserGet(param, callback) {
+		var allParams = {
+			url: 'Common/User/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 	userUpdate(param, callback) {
 		var allParams = {
 			url: 'Base/User/update',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	statisticsGet(param, callback) {
+		var allParams = {
+			url: 'Common/Statistics/get',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {

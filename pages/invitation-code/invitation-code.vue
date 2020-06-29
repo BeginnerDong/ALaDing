@@ -1,7 +1,7 @@
 <template>
-	<view>
+	<view v-if="showAll">
 		<view class="bgImg position-fixed top-0 left-0 right-0">
-			<image src="../../static/images/the%20invitationl-icon.png" mode=""></image>
+			<image src="../../static/images/the-invitationl-icon.png" mode=""></image>
 		</view>
 		<view class="invi-txt text-center position-relative top-0 w-100">
 			<image src="../../static/images/the invitationl-img.png" mode=""></image>
@@ -12,57 +12,195 @@
 			<!-- 没有邀请码 -->
 			<view class="d-flex flex-column a-center" v-if="codeCurrent==1">
 				<view class="font-3 color2 font-w py-5 mt-2">请输入邀请码</view>
-				<input type="text" value=""  @click="changeCode(2)"/>
+				<input type="text" style="padding: 0 20rpx;font-weight: 700;" v-model="code" @blur="searchUser()"/>
 				<view class="font-24 pt-3 txt" @click="maskShow()">没有邀请码？</view>
 			</view>
 			
 			<!-- 换个邀请码 -->
 			<view class="d-flex flex-column a-center" v-else>
 				<view class="font-3 color2 font-w py-5 mt-2">请确认您的邀请人</view>
-				<view class="inviPer">
-					<image src="../../static/images/the%20invitationl-img1.png" mode=""></image>
-					<view class="font-32 color2 pt-3">Tahoe</view>
+				<view class="inviPer" style="text-align: center;">
+					<image style="border-radius: 50%;overflow: hidden;" :src="shareUser.headImgUrl!=''?shareUser.headImgUrl:''" mode=""></image>
+					<view class="font-32 color2 pt-3">{{shareUser.nickname}}</view>
 				</view>
 				<view class="font-24 pt-3 txt" @click="changeCode(1)">我想换个邀请码</view>
 			</view>
 			
 			<view class="position-absolute bottom-0 d-flex flex-column a-center w-100">
-				<view class="btn" @click="Router.navigateTo({route:{path:'/pages/course/course'}})">下一步</view>
+				<button class="btn" open-type="getUserInfo" @getuserinfo="Utils.stopMultiClick(submit)">下一步</button>
 				<view class="tips d-flex j-center a-center pt-3">
-					<image src="../../static/images/the%20invitationl-icon1.png" mode=""></image>
+					<image src="../../static/images/the-invitationl-icon1.png" mode=""></image>
 					<view class="px-1 font-22">友情提示：请确认您的邀请人，注册后不可以更改哦</view>
 				</view>
 			</view>
 		</view>
 		
-		<view class="bg-mask" v-show="mask_show">
-			<view class="maskBox bg-white rounded10 text-center position-absolute left-0 top-0 right-0 bottom-0 m-a">
-				<view class="font-26 color2 font-w py-3">提示</view>
-				<view class="font-24 color6 pb-4 px-4 mx-3 line-h-md">请联系身边已注册阿拉丁的朋友索要或网络搜索阿拉丁邀请码</view>
-				<view class="font-28 font-w borderT-f5 py-3" @click="maskShow()">知道了</view>
-			</view>
-		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		
 		data() {
 			return {
 				Router:this.$Router,
-				mask_show:false,
-				codeCurrent:1
+				Utils:this.$Utils,
+				codeCurrent:1,
+				code:'',
+				shareUser:{},
+				showAll:false
 			}
 		},
+		
+		onLoad() {
+			const self = this;
+			self.$Utils.loadAll(['getUserData'], self);
+		},
+		
+		
+		onShareAppMessage(ops) {
+			console.log(ops)
+			const self = this;
+			if (ops.from === 'button') {
+				
+				return {
+					title:'阿拉丁',
+					path: '/pages/index/index', //点击分享的图片进到哪一个页面
+					//imageUrl:self.mainData&&self.mainData.mainImg&&self.mainData.mainImg[0]&&self.mainData.mainImg[0].url?self.mainData.mainImg[0].url:'',
+					success: function(res) {
+						// 转发成功
+						
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+			}else{
+				return {
+					title:'阿拉丁',
+					path: '/pages/index/index', //点击分享的图片进到哪一个页面
+					//imageUrl:self.mainData&&self.mainData.mainImg&&self.mainData.mainImg[0]&&self.mainData.mainImg[0].url?self.mainData.mainImg[0].url:'',
+					success: function(res) {
+						// 转发成功
+						
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+			}
+		},
+		
 		methods: {
+			
+			submit() {
+				const self = this;
+				uni.setStorageSync('canClick', false);
+				if(JSON.stringify(self.shareUser)=="{}"){
+					uni.setStorageSync('canClick', true);
+					self.$Utils.showToast('邀请人信息错误', 'none');
+					return
+				};
+				const callback = (user, res) => {
+					console.log(res)
+					self.userUpdate();
+				};
+				self.$Utils.getAuthSetting(callback);
+			},
+			
+			userUpdate(){
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.data = {
+					parent_no:self.shareUser.user_no
+				};
+				if(!wx.getStorageSync('user_info')||wx.getStorageSync('user_info').headImgUrl==''||!wx.getStorageSync('user_info').headImgUrl){
+				  postData.refreshToken = true;
+				};
+				const callback = (res) => {
+					if (res.solely_code==100000) {
+						self.Router.redirectTo({route:{path:'/pages/user/user'}})
+					}else{
+						self.$Utils.showToast(res.msg, 'none');
+					}
+				};
+				self.$apis.userUpdate(postData, callback);
+			},
+			
+			searchUser(){
+				const self = this;
+				const postData = {};
+				console.log(222)
+				postData.tokenFuncName = 'getProjectToken';
+				postData.searchItem = {
+					user_no:self.code
+				};
+				const callback = (res) => {
+					if (res.solely_code==100000&&res.info.data.length > 0) {
+						self.codeCurrent = 2;
+						self.shareUser = res.info.data[0]
+					}else{
+						uni.showModal({
+							title:'提示',
+							content:'此邀请码未找到对应用户',
+							showCancel:false,
+							confirmText:'我知道了',
+							success(res) {
+								if(res.confirm){
+									self.code=''
+								}
+							}
+						})
+					}
+				};
+				self.$apis.commonUserGet(postData, callback);
+			},
+			
 			maskShow(){
 				const self = this;
-				self.mask_show = !self.mask_show;
+				uni.showModal({
+					title:'提示',
+					content:'请联系身边已注册阿拉丁的朋友索要或网络搜索阿拉丁邀请码',
+					showCancel:false,
+					confirmText:'知道了',
+					success(res) {
+						if(res.confirm){
+						}
+					}
+				})
 			},
+			
 			changeCode(i){
 				const self = this;
 				self.codeCurrent = i;
-			}
+				self.code = '';
+			},
+			
+			
+			getUserData() {
+				const self = this;
+				const postData = {};
+				console.log(222)
+				postData.tokenFuncName = 'getProjectToken';
+				
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userData = res.info.data[0];
+						if(self.userData.parent_no!=''){
+							self.Router.redirectTo({route:{path:'/pages/user/user'}})
+						}else{
+							self.showAll = true
+						}
+					}
+					self.$Utils.finishFunc('getUserData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
 		}
 	}
 </script>

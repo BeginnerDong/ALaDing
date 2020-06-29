@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="bgImg">
-			<image src="../../static/images/to%20promotel-img.png" mode=""></image>
+			<image src="../../static/images/to-promotel-img.png" mode=""></image>
 		</view>
 		
 		<view class="position-relative bg-white mx-3 shadow text-center promoBox">

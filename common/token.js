@@ -356,7 +356,7 @@ class Token {
                     method:'POST',
                     data:postData,
                     success:function(res){
-                        console.log(res)
+                        console.log('aaa','getUserInfoData')
                         if(res.data&&res.data.solely_code==100000){
                             uni.setStorageSync(params.info_name,res.data.info);
                             uni.setStorageSync(params.token_name, res.data.token);
@@ -377,7 +377,10 @@ class Token {
                         };
                         
                         
-                    }
+                    },
+					fail(res) {
+						 console.log(res)
+					}
                 })
                 
             }

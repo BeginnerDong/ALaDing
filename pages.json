@@ -1,106 +1,94 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		  "path" : "pages/invitation-code/invitation-code",
-		  "style" : {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		
+		},
+		{
+			"path": "pages/invitation-code/invitation-code",
+			"style": {
 				"navigationBarTitleText": "",
-				"onReachBottomDistance":100
+				"onReachBottomDistance": 100
 			}
 		},
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页",//设置页面标题文字
-				"onReachBottomDistance":100
+				"navigationBarTitleText": "首页", //设置页面标题文字
+				"onReachBottomDistance": 100
 			}
 		}
-    
-        ,{
-            "path" : "pages/course/course",
-            "style" : {
-							"navigationBarTitleText": "课程"
-						}
-        }
-        ,{
-            "path" : "pages/user/user",
-            "style" : {
-							"navigationBarTitleText": "我的"
-						}
-						
-        }
-        ,{
-            "path" : "pages/user-profit/user-profit",
-            "style" : {
-							"navigationBarTitleText": "我的收益"
-						}
-        }
-        ,{
-            "path" : "pages/user-team/user-team",
-            "style" : {
-							"navigationBarTitleText": "我的团队"
-						}
-        }
-        ,{
-            "path" : "pages/user-teamList/user-teamList",
-            "style" : {
-							"navigationBarTitleText": "团队列表"
-						}
-        }
-        ,{
-            "path" : "pages/user-promotion/user-promotion",
-            "style" : {
-							"navigationBarTitleText": "推广中心"
-						}
-        }
-        ,{
-            "path" : "pages/user-aboutUs/user-aboutUs",
-            "style" : {
-							"navigationBarTitleText": "关于我们"
-						}
-        }
-        ,{
-            "path" : "pages/user-Withdrawal/user-Withdrawal",
-            "style" : {
-							"navigationBarTitleText": "提现记录"
-						}
-        }
-        ,{
-            "path" : "pages/user-WithdrawalRecord/user-WithdrawalRecord",
-            "style" : {
-							"navigationBarTitleText": "提现"
-						}
-        }
-        ,{
-            "path" : "pages/user-backCard/user-backCard",
-            "style" : {
-							"navigationBarTitleText": "银行卡"
-						}
-        }
-        ,{
-            "path" : "pages/courseDetails/courseDetails",
-            "style" : {
-							"navigationBarTitleText": "详情"
-						}
-        }
-        ,{
-            "path" : "pages/courseBuy/courseBuy",
-            "style" : {
-							"navigationBarTitleText": "确认订单"
-						}
-        }
-        ,{
-            "path" : "pages/courseBuySussess/courseBuySussess",
-            "style" : {
-							"navigationBarTitleText": "购买成功"
-						}
-        }
-        ,{
-            "path" : "pages/user-dataDetails/user-dataDetails",
-            "style" : {
-							"navigationBarTitleText": "数据详情"
-						}
-        }
-    ],
+
+		, {
+			"path": "pages/course/course",
+			"style": {
+				"navigationBarTitleText": "课程"
+			}
+		}, {
+			"path": "pages/user-profit/user-profit",
+			"style": {
+				"navigationBarTitleText": "我的收益"
+			}
+		}, {
+			"path": "pages/user-team/user-team",
+			"style": {
+				"navigationBarTitleText": "我的团队"
+			}
+		}, {
+			"path": "pages/user-teamList/user-teamList",
+			"style": {
+				"navigationBarTitleText": "团队列表"
+			}
+		}, {
+			"path": "pages/user-promotion/user-promotion",
+			"style": {
+				"navigationBarTitleText": "推广中心"
+			}
+		}, {
+			"path": "pages/user-aboutUs/user-aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		}, {
+			"path": "pages/user-Withdrawal/user-Withdrawal",
+			"style": {
+				"navigationBarTitleText": "提现记录"
+			}
+		}, {
+			"path": "pages/user-WithdrawalRecord/user-WithdrawalRecord",
+			"style": {
+				"navigationBarTitleText": "提现"
+			}
+		}, {
+			"path": "pages/user-backCard/user-backCard",
+			"style": {
+				"navigationBarTitleText": "银行卡"
+			}
+		}, {
+			"path": "pages/courseDetails/courseDetails",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		}, {
+			"path": "pages/courseBuy/courseBuy",
+			"style": {
+				"navigationBarTitleText": "确认订单"
+			}
+		}, {
+			"path": "pages/courseBuySussess/courseBuySussess",
+			"style": {
+				"navigationBarTitleText": "购买成功"
+			}
+		}, {
+			"path": "pages/user-dataDetails/user-dataDetails",
+			"style": {
+				"navigationBarTitleText": "数据详情"
+			}
+		}
+	],
 	"globalStyle": {
 		//"navigationStyle":"custom",
 		"navigationBarTextStyle": "white",

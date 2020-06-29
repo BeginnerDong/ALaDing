@@ -1,25 +1,17 @@
 <template>
 	<view>
-		<view class="mx-3 rounded10 shadow-sm mt-2 course-item" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails'}})">
-			<image src="../../static/images/coursel-img.png" mode=""></image>
+		<view class="mx-3 rounded10 shadow-sm mt-2 course-item" v-for="(item,index) of mainData" :key="item.id"
+		 :data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails?id='+$event.currentTarget.dataset.id}})">
+			<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image>
 			<view class="px-2 line-h">
-				<view class="py-3 font-30 color2">课程标题标题标题</view>
+				<view class="py-3 font-30 color2">{{item.title}}</view>
 				<view class="d-flex a-center pb-3">
-					<view class="price font-34 pr-1">1999</view>
-					<view class="sign">主播</view>
+					<view class="price font-34 pr-1">{{item.price}}</view>
+					<view class="sign">{{item.behavior==1?'主播':'导师'}}</view>
 				</view>
 			</view>
 		</view>
-		<view class="mx-3 rounded10 shadow-sm mt-2 course-item" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails'}})">
-			<image src="../../static/images/coursel-img1.png" mode=""></image>
-			<view class="px-2 line-h">
-				<view class="py-3 font-30 color2">课程标题标题标题</view>
-				<view class="d-flex a-center pb-3">
-					<view class="price font-34 pr-1">1999</view>
-					<view class="sign">主播</view>
-				</view>
-			</view>
-		</view>
+		
 		
 		
 		<view class="footer">
@@ -49,12 +41,38 @@
 
 <script>
 	export default {
+		
 		data() {
 			return {
-				Router:this.$Router
+				Router:this.$Router,
+				mainData:[]
 			}
 		},
+		
+		onLoad() {
+			const self = this;
+			self.$Utils.loadAll(['getMainData'], self);
+		},
+		
 		methods: {
+			
+			getMainData() {
+				const self = this;
+				const postData = {};
+				postData.searchItem = {
+					thirdapp_id:2
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+					}
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.productGet(postData, callback);
+			},
 			
 		}
 	}
