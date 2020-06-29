@@ -5,8 +5,9 @@
 		</view>
 		<view class="invi-txt text-center position-relative top-0 w-100">
 			<image src="../../static/images/the invitationl-img.png" mode=""></image>
-			<view class="font-30 colorf pt-5 pb-3">实现你3个愿望~阿拉丁</view>
-			<view class="font-24 colorf pb-3">京东海量专属优惠，购买省钱 | 分享赚钱</view>
+			<view class="font-30 colorf pt-5 pb-2">帮你实现不止“3”个愿望</view>
+			<view class="font-24 colorf pb-2">社交+电商+短视频+直播带货</view>
+			<view class="font-24 colorf pb-3">挑选属于你的优质主播  让直播带货更简单</view>
 		</view>
 		<view class="inviCard mx-3 rounded20 position-relative mt-2 shadow">
 			<!-- 没有邀请码 -->
@@ -191,11 +192,12 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0];
-						if(self.userData.parent_no!=''){
+													self.showAll = true
+						/* if(self.userData.parent_no!=''){
 							self.Router.redirectTo({route:{path:'/pages/user/user'}})
 						}else{
 							self.showAll = true
-						}
+						} */
 					}
 					self.$Utils.finishFunc('getUserData');
 				};

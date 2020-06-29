@@ -88,7 +88,13 @@
 				"navigationBarTitleText": "数据详情"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/user-Information/user-Information",
+            "style" : {
+							"navigationBarTitleText": "信息"
+						}
+        }
+    ],
 	"globalStyle": {
 		//"navigationStyle":"custom",
 		"navigationBarTextStyle": "white",

@@ -23,7 +23,10 @@
 						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
 					</view>
-					<view class="color6">佣金比例：暂无数据</view>
+					<view class="color6 d-flex a-center">
+						<view>微信号：ikahdhiu6876</view>
+						<view class="sign4 ml-2">复制</view>
+					</view>
 				</view>
 			</view>
 			<view style="font-weight: 700;width: 100%;text-align: center;" class="item d-flex a-center py-3 borderB-f5" 
@@ -42,6 +45,12 @@
 						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
 					</view>
+					<!-- ---------添加--------- -->
+					<view class="color6 d-flex a-center">
+						<view>微信号：ikahdhiu6876</view>
+						<view class="sign4 ml-2">复制</view>
+					</view>
+					<!-- ---------------添加------------- -->
 					<view class="color6">注册时间：{{item.create_time}}</view>
 				</view>
 				<view class="font-40 qj" :data-user_no="item.child_no"

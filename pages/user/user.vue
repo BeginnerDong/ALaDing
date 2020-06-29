@@ -3,7 +3,7 @@
 		<view class="head line-h ">
 			<view class="userCon px-3 py-3 d-flex a-center">
 				<image style="border-radius: 50%;overflow: hidden;" :src="userData.headImgUrl!=''?userData.headImgUrl:''" mode=""></image>
-				<view class="colorf ml-2">
+				<view class="colorf ml-2 flex-1">
 					<view class="d-flex a-center pb-3">
 						<view class="pr-1 font-30">{{userData.nickname?userData.nickname:''}}</view>
 						<view class="sign1">{{userData.behavior==0?'游客':(userData.behavior==1?'主播':'导师')}}</view>
@@ -13,6 +13,7 @@
 						<view class="sign1" @click="getClipboardData">复制</view>
 					</view>
 				</view>
+				<image src="../../static/images/user-icon.png" style="width: 42rpx;height: 39rpx;" @click="Router.navigateTo({route:{path:'/pages/user-Information/user-Information'}})"></image>
 			</view>
 			<view class="font-50 colorf font-w text-center pt-3 pb-2">{{userData.info?userData.info.balance:''}}</view>
 			<view class="font-22 text-center colorf pb-3">可提现金额(￥)</view>
