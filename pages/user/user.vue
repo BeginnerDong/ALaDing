@@ -267,5 +267,5 @@
 		color: #000000;
 		background: none;
 	}
-	.user{padding-bottom: 120rpx;}
+	.user{padding-bottom: 150rpx;}
 </style>
