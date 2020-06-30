@@ -81,7 +81,7 @@
 </script>
 
 <style>
-	.courseBox{padding-bottom: 120rpx;}
+	.courseBox{padding-bottom: 150rpx;}
 .course-item{overflow: hidden;}
 .course-item image{width: 100%;height: 300rpx;}
 </style>

@@ -20,8 +20,8 @@
 				<view class="font-26 pl-2">
 					<view class="d-flex a-center pb-3">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
-						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
-						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
+						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==2">导师</view>
+						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==1">主播</view>
 					</view>
 					<view class="color6 d-flex a-center">
 						<view>微信号：{{item.relationUser&&item.relationUser[0]&&item.relationUser[0].info
@@ -44,16 +44,14 @@
 				<view class="font-26 pl-2 flex-1 d-flex flex-column j-sb" style="min-height: 100rpx;">
 					<view class="d-flex a-center">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
-						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
-						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
+						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==2">导师</view>
+						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==1">主播</view>
 					</view>
-					<!-- ---------添加--------- -->
 					<view class="color6 d-flex a-center">
 						<view v-if="userData.behavior==2">微信号：{{item.relationUser&&item.relationUser[0]&&item.relationUser[0].info
 						&&item.relationUser[0].info.wechat!=''?item.relationUser[0].info.wechat:'暂未填写'}}</view>
 						<view class="sign4 ml-2" @click="getClipboardData(1,index)">复制</view>
 					</view>
-					<!-- ---------------添加------------- -->
 					<view class="color6">注册时间：{{item.create_time}}</view>
 				</view>
 				<view class="font-40 qj" :data-user_no="item.child_no"
