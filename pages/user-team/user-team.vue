@@ -119,7 +119,7 @@
 			getClipboardData(type,index){
 				const self = this;
 				uni.setClipboardData({
-				    data: type==0?self.highUserData[index].parent_no:self.mainData[index].child_no,
+				    data: type==0?self.highUserData[index].relationUser[0].info.wechat:self.mainData[index].relationUser[0].info.wechat,
 				    success: function () {
 				        console.log('success');
 				    }
