@@ -75,12 +75,12 @@
 
 		<view class="footer">
 			<view class="item"  @click="showToast">
-				<image src="../../static/images/nabar1.png" mode=""></image>
-				<view>产品</view>
+				<image src="../../static/images/nabar2.png" mode=""></image>
+				<view>首页</view>
 			</view>
 			<view class="item" @click="Router.redirectTo({route:{path:'/pages/course/course'}})">
-				<image src="../../static/images/nabar2.png" mode=""></image>
-				<view>课程</view>
+				<image src="../../static/images/nabar1.png" mode=""></image>
+				<view>商品</view>
 			</view>
 			<view class="item"  @click="showToast">
 				<image src="../../static/images/nabar3.png" mode=""></image>

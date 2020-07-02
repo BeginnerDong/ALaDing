@@ -44,7 +44,7 @@ uni-button:after{border: 0;}
 	border-color: #ffb2c2;
 }
 
-bage{line-height: 1;}
+
 
 
 
@@ -89,8 +89,8 @@ bage{line-height: 1;}
 .footer .item{width: 20%;display: flex;flex-direction: column;align-items: center;color: #666;font-size: 20rpx;justify-content: center;}
 .footer .on{color: #FF7B8E;}
 .footer .item image{margin-bottom: 10rpx;}
-.footer .item:nth-child(1) image{width: 39rpx;height: 46rpx;}
-.footer .item:nth-child(2) image{width: 41rpx;height: 41rpx;}
+.footer .item:nth-child(1) image{width: 41rpx;height: 41rpx;}
+.footer .item:nth-child(2) image{width: 39rpx;height: 46rpx;}
 .footer .item:nth-child(3) image{width: 44rpx;height: 40rpx;}
 .footer .item:nth-child(4) image{width: 38rpx;height: 42rpx;}
 .footer .item:nth-child(5) image{width: 38rpx;height: 44rpx;}
