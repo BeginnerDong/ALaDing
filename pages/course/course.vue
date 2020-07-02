@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="showAll">
 		<view class="courseBox">
 			<view class="mx-3 rounded10 shadow-sm mt-2 course-item" v-for="(item,index) of mainData" :key="item.id"
 			 :data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/courseDetails/courseDetails?id='+$event.currentTarget.dataset.id}})">
@@ -17,7 +17,7 @@
 		
 		
 		<view class="footer">
-			<view class="item">
+			<view class="item" @click="showToast">
 				<image src="../../static/images/nabar1.png" mode=""></image>
 				<view>产品</view>
 			</view>
@@ -25,11 +25,11 @@
 				<image src="../../static/images/nabar2-a.png" mode=""></image>
 				<view>课程</view>
 			</view>
-			<view class="item">
+			<view class="item" @click="showToast">
 				<image src="../../static/images/nabar3.png" mode=""></image>
 				<view>主播</view>
 			</view>
-			<view class="item">
+			<view class="item" @click="showToast">
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
@@ -47,16 +47,44 @@
 		data() {
 			return {
 				Router:this.$Router,
-				mainData:[]
+				mainData:[],
+				showAll:false
 			}
 		},
 		
 		onLoad() {
 			const self = this;
-			self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getMainData','getUserData'], self);
 		},
 		
 		methods: {
+			
+			showToast(){
+				const self = this;
+				uni.showModal({
+					title:'',
+					content:'功能开发中~',
+					showCancel:false
+				})
+			},
+			
+			getUserData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userData = res.info.data[0]
+						if(self.userData.parent_no==''){
+							self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
+						}else{
+							self.showAll = true
+						}
+					}
+					self.$Utils.finishFunc('getUserData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
 			
 			getMainData() {
 				const self = this;

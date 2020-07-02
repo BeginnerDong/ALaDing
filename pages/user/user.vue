@@ -74,7 +74,7 @@
 		</view>
 
 		<view class="footer">
-			<view class="item">
+			<view class="item"  @click="showToast">
 				<image src="../../static/images/nabar1.png" mode=""></image>
 				<view>产品</view>
 			</view>
@@ -82,11 +82,11 @@
 				<image src="../../static/images/nabar2.png" mode=""></image>
 				<view>课程</view>
 			</view>
-			<view class="item">
+			<view class="item"  @click="showToast">
 				<image src="../../static/images/nabar3.png" mode=""></image>
 				<view>主播</view>
 			</view>
-			<view class="item">
+			<view class="item"  @click="showToast">
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
@@ -115,6 +115,16 @@
 
 
 		methods: {
+			
+			showToast(){
+				const self = this;
+				uni.showModal({
+					title:'',
+					content:'功能开发中~',
+					showCancel:false
+				})
+			},
+			
 			getClipboardData(){
 				const self = this;
 				uni.setClipboardData({

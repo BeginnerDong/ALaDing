@@ -1,5 +1,11 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	{
+		"path": "pages/course/course",
+		"style": {
+			"navigationBarTitleText": "课程"
+		}
+	},
 		{
 			"path": "pages/user/user",
 			"style": {
@@ -19,13 +25,6 @@
 			"style": {
 				"navigationBarTitleText": "首页", //设置页面标题文字
 				"onReachBottomDistance": 100
-			}
-		}
-
-		, {
-			"path": "pages/course/course",
-			"style": {
-				"navigationBarTitleText": "课程"
 			}
 		}, {
 			"path": "pages/user-profit/user-profit",
