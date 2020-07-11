@@ -53,9 +53,15 @@
 			}
 		},
 		
-		onLoad() {
+		onLoad(options) {
 			const self = this;
+			if(options.scene){
+				var scene = decodeURIComponent(options.scene);
+				self.code = scene;
+				self.searchUser()
+			};
 			self.$Utils.loadAll(['getUserData'], self);
+			
 		},
 		
 		
@@ -101,11 +107,21 @@
 			submit() {
 				const self = this;
 				uni.setStorageSync('canClick', false);
+				if(self.userData.parent_no!=''){
+					uni.setStorageSync('canClick', true);
+					self.$Utils.showToast('您的账号已被邀请', 'none');
+					return
+				};
+				if(self.code == self.userData.user_no){
+					uni.setStorageSync('canClick', true);
+					self.$Utils.showToast('不可自己邀请自己', 'none');
+					return
+				};
 				if(JSON.stringify(self.shareUser)=="{}"){
 					uni.setStorageSync('canClick', true);
 					self.$Utils.showToast('邀请人信息错误', 'none');
 					return
-				};
+				};			
 				const callback = (user, res) => {
 					console.log(res)
 					self.userUpdate();

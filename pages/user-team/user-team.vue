@@ -177,6 +177,14 @@
 							status:1
 						},
 						condition:'=',
+						compute:{
+						  zhubo:[
+						    'count',
+						    'count',
+						    {behavior:1}
+						  ],
+						
+						},
 					}
 				};
 				const callback = (res) => {

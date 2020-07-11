@@ -33,7 +33,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.navigateTo({route:{path:'/pages/user/user'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>
@@ -54,10 +54,39 @@
 		
 		onLoad() {
 			const self = this;
-			self.$Utils.loadAll(['getMainData','getUserData'], self);
+			self.$Utils.loadAll(['getMainData','tokenGet'], self);
 		},
 		
 		methods: {
+			
+			
+			tokenGet() {
+				const self = this;
+				const postData = {
+					searchItem: {
+						user_no: 'U706206460389216'
+					}
+				};
+				console.log('postData', postData)
+				const callback = (res) => {
+					if (res.solely_code == 100000) {
+						self.userData = res.info;
+						if(self.userData.parent_no==''){
+							self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
+						}else{
+							self.showAll = true
+						}
+						uni.setStorageSync('user_token', res.token);
+						uni.setStorageSync('user_no', res.info.user_no);
+						uni.setStorageSync('user_info', res.info);
+						var time = parseInt(new Date().getTime()) + 3500000;
+						uni.setStorageSync('token_expire_time',time);
+					}
+					console.log('res', res)
+					self.$Utils.finishFunc('tokenGet');
+				};
+				self.$apis.tokenGet(postData, callback);
+			},
 			
 			showToast(){
 				const self = this;

@@ -90,7 +90,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item .on" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
+			<view class="item .on">
 				<image src="../../static/images/nabar5-a.png" mode=""></image>
 				<view>我的</view>
 			</view>
