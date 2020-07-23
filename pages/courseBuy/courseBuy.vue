@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view :style="isIphoneX?'padding-bottom: 60rpx':''">
 		<view class="item d-flex mx-3 px-3 py-3 bg-white rounded10 mt-3">
 			<image :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode=""></image>
 			<view class="d-flex flex-column j-sb px-2 flex-1">
@@ -11,11 +11,11 @@
 			</view>
 		</view>
 		
-		<view class="d-flex j-sb bg-white position-fixed bottom-0 left-0 right-0 courseFoot">
+		<view class="d-flex j-sb bg-white position-fixed bottom-0 left-0 right-0 courseFoot" :style="isIphoneX?'padding-bottom: 60rpx':''">
 			<view class="px-3 d-flex a-center">
 				合计<view class="price font-34 pr-2 pl-2">{{mainData.price}}</view>
 			</view>
-			<button class="submitBtn colorf font-30 text-center" 
+			<button class="submitBtn colorf font-30 text-center"  style="border-radius: 0;"
 			open-type="getUserInfo"  @getuserinfo="Utils.stopMultiClick(submit)">确认订单</button>
 		</view>
 	</view>
@@ -29,13 +29,15 @@
 				Router:this.$Router,
 				Utils:this.$Utils,
 				mainData:{},
-				distriData:[]
+				distriData:[],
+				isIphoneX:false
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
 			self.id = options.id;
+			self.isIphoneX = wx.getStorageSync('isIphoneX');
 			self.$Utils.loadAll(['getMainData','getDistriData'], self);
 		},
 		
@@ -218,6 +220,6 @@
 <style>
 page{background-color: #f5f5f5;}
 .item image{width: 180rpx;height: 180rpx;border-radius: 10rpx;}
-.courseFoot{height: 100rpx;}
+.courseFoot{}
 .submitBtn{height: 100rpx;width: 280rpx;background-color: #FF7B8E;line-height: 100rpx;}
 </style>

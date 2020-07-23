@@ -7,13 +7,15 @@
 				<view class="th">获得佣金</view>
 				<view class="th">平台奖励</view>
 			</view>
-			<view class="tr" v-for="item of mainData">
+			<view class="tr" v-for="item of mainData" :key="item.id" v-if="mainData.length>0">
 				<view class="td">{{item.create_time}}</view>
 				<view class="td">{{item.order}}</view>
 				<view class="td">{{item.balance}}</view>
 				<view class="td">{{item.reward}}</view>
 			</view>
-			
+			<view style="font-weight: 700;width: 100%;text-align: center;" class="item  a-center py-3 borderB-f5" v-if="mainData.length==0">
+				暂无数据
+			</view>
 		</view>
 	</view>
 </template>

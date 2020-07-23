@@ -73,7 +73,7 @@
 			</view>
 		</view>
 
-		<view class="footer">
+		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
 			<view class="item"  @click="showToast">
 				<image src="../../static/images/nabar2.png" mode=""></image>
 				<view>首页</view>
@@ -104,12 +104,14 @@
 			return {
 				Router: this.$Router,
 				userData: {},
-				showAll:false
+				showAll:false,
+				isIphoneX:false
 			}
 		},
 
 		onLoad() {
 			const self = this;
+			self.isIphoneX = wx.getStorageSync('isIphoneX');
 			self.$Utils.loadAll(['getUserData'], self);
 		},
 

@@ -20,7 +20,7 @@
 				 @click="Router.navigateTo({route:{path:'/pages/user-dataDetails/user-dataDetails?user_no='+$event.currentTarget.dataset.user_no}})">></view>
 			</view>
 			
-			<view style="font-weight: 700;width: 100%;text-align: center;" class="item d-flex a-center py-3 borderB-f5" v-if="mainData.length==0">
+			<view style="font-weight: 700;width: 100%;text-align: center;" class="item  a-center py-3 borderB-f5" v-if="mainData.length==0">
 				<span>暂无数据</span>
 			</view>
 		</view>
@@ -33,10 +33,11 @@
 			return {
 				searchItem:{
 					thirdapp_id:2,
+					//level:1
 				},
 				mainData:[],
 				Router:this.$Router,
-				titCurrent:1,
+				titCurrent:-1,
 				getBefore:{
 					relationUser:{
 						tableName:'User',
@@ -54,8 +55,14 @@
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
-			self.$Utils.loadAll(['getMainData'], self);
-			self.titCurrent = options.id;
+			self.searchItem.child_no = ['not in',[uni.getStorageSync('user_info').user_no]]
+			if(options.id){
+				//self.titCurrent = options.id;
+				self.changeTit(options.id)
+			}else{
+				self.titCurrent = 1;
+				self.$Utils.loadAll(['getMainData'], self);
+			}
 		},
 		onReachBottom() {
 			console.log('onReachBottom')
@@ -70,6 +77,7 @@
 			
 			changeTit(i){
 				const self = this;
+				console.log(i)
 				if(i!=self.titCurrent){
 					self.titCurrent = i;
 					self.getBefore = {
