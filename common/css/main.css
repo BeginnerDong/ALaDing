@@ -31,18 +31,22 @@ uni-button:after{border: 0;}
 
 /* #endif */
 /* 主色调 */
-/* 主背景颜色（橙色）*/
-.main-bg-color{ background-color: #ffb2c2; }
-/* 主点击背景颜色（淡橙色）*/
+/* 主背景颜色*/
+.Mbg{ background-color: #FF7B8E; }
+.bB-f5{background-color: #f5f5f5;}
+/* 主点击背景颜色）*/
 .main-bg-hover-color{ background-color: rgba(253,104,1,0.85); }
-/* 主字体颜色（橙色）*/
-.main-text-color{color: #ffb2c2;}
+/* 主字体颜色*/
+.colorM{color: #FF7B8E;}
 /* 主边框颜色 */
-.main-border-color{ border-color: #F1F1F1; }
+.borderM{ border:1px solid #FF7B8E; }
 
 .input-border-color{
-	border-color: #ffb2c2;
+	border-color: #FF7B8E;
 }
+
+.shadowM{box-shadow: 0 0 8rpx 0 rgba(114, 130, 138, 0.2)}
+.shadowB{box-shadow: 0 8rpx 8rpx 0 rgba(114, 130, 138, 0.1)}
 
 
 
@@ -68,6 +72,7 @@ uni-button:after{border: 0;}
 .submit{height: 80rpx;border-radius: 40rpx;background-color: #ff7b8e;color: #fff;font-size: 30rpx;line-height: 80rpx;text-align: center;}
 .btn1{width: 220rpx;height: 60rpx;line-height: 60rpx;background-color: #FED513;color: #222;text-align: center;margin: 0 25rpx;font-size: 26rpx;border-radius: 30rpx;}
 .btn2{width: 160rpx;height: 60rpx;line-height: 60rpx;background-color: #FED513;color: #222;text-align: center;margin: 0 25rpx;font-size: 26rpx;border-radius: 30rpx;}
+.btn600{width: 600rpx;height: 80rpx;border-radius: 10rpx;background-color: #ff7b8e;color: #fff;font-size: 28rpx;line-height: 80rpx;text-align: center;}
 
 /* 页面铺满背景图 */
 .pageBj{width: 100%;height: 100%;position: fixed;left: 0;top: 0;right: 0;bottom:0rpx;z-index: 0;}
@@ -85,12 +90,12 @@ uni-button:after{border: 0;}
 
 
 /* 底部导航 */
-.footer{height: 130rpx;width:100%;border-top: 1px solid #f5f5f5;position: fixed;bottom: 0;display: flex;justify-content: space-between;background-color: #fff;}
+.footer{height: 130rpx;width:100%;border-top: 1px solid #f5f5f5;position: fixed;bottom: 0;display: flex;justify-content: space-between;background-color: #fff;align-items: flex-end;padding-bottom: 30rpx;box-sizing: border-box;z-index: 1000;}
 .footer .item{width: 20%;display: flex;flex-direction: column;align-items: center;color: #666;font-size: 20rpx;justify-content: center;}
 .footer .on{color: #FF7B8E;}
 .footer .item image{margin-bottom: 10rpx;}
-.footer .item:nth-child(1) image{width: 41rpx;height: 41rpx;}
-.footer .item:nth-child(2) image{width: 39rpx;height: 46rpx;}
+.footer .item:nth-child(2) image{width: 41rpx;height: 41rpx;}
+.footer .item:nth-child(1) image{width: 39rpx;height: 46rpx;}
 .footer .item:nth-child(3) image{width: 44rpx;height: 40rpx;}
 .footer .item:nth-child(4) image{width: 38rpx;height: 42rpx;}
 .footer .item:nth-child(5) image{width: 38rpx;height: 44rpx;}
@@ -107,3 +112,14 @@ uni-button:after{border: 0;}
 .sign2{width: 60rpx;height: 30rpx;text-align: center;background-color: #FED513;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
 /* 主播标签 */
 .sign3{width: 60rpx;height: 30rpx;text-align: center;background-color: #ffa6b3;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
+
+.tag{font-size: 24rpx;border-radius: 5rpx;line-height: 30rpx;color: #fff;padding: 0 5rpx;display: inline-block;margin-left: 10rpx;}
+.tagP{background-color: #FF7B8E;}
+.tagR{background-color: #FB2B21;}
+.tagB{background-color: #1FDFDB;}
+
+
+/* 图标 */
+.R-icon{width: 13rpx;height: 24rpx;}
+.yes-icon{width: 38rpx;height: 26rpx;}
+.sj-icon{width: 14rpx;height: 7rpx;margin-left: 10rpx;}

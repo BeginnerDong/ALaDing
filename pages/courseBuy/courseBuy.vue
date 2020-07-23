@@ -1,12 +1,23 @@
 <template>
 	<view :style="isIphoneX?'padding-bottom: 60rpx':''">
+		<view class="bg-white p-3 mx-3 my-2 position-relative rounded10 overflow-h">
+			<view class="flex1">
+				<input type="text" value="" placeholder="姓名" />
+				<input type="text" value="" placeholder="电话" />
+			</view>
+			<image src="../../static/images/line.png" class="line"></image>
+		</view>
+		
 		<view class="item d-flex mx-3 px-3 py-3 bg-white rounded10 mt-3">
 			<image :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode=""></image>
 			<view class="d-flex flex-column j-sb px-2 flex-1">
 				<view class="font-28 color2 font-w">{{mainData.title?mainData.title:''}}</view>
 				<view class="d-flex a-center line-h ">
 					<view class="price font-34 pr-2">{{mainData.price?mainData.price:''}}</view>
-					<view class="sign">{{mainData.behavior==1?'主播':'导师'}}</view>
+					<view class="sign flex">
+						<view>{{item.behavior==1?'主播':'导师'}}</view>
+						<image src="../../static/images/start.png" class="wh20"></image>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -219,7 +230,13 @@
 
 <style>
 page{background-color: #f5f5f5;}
+</style>
+<style scoped>
 .item image{width: 180rpx;height: 180rpx;border-radius: 10rpx;}
 .courseFoot{}
 .submitBtn{height: 100rpx;width: 280rpx;background-color: #FF7B8E;line-height: 100rpx;}
+.wh20{width: 20rpx!important;height: 20rpx!important;margin-left: 5rpx;}
+.sign{width: auto;padding: 0 5rpx;}
+input{width: 300rpx;height: 67rpx;font-size: 24rpx;border: 1px solid #e1e1e1;border-radius: 10rpx;text-align: center;}
+.line{width: 690rpx;height: 4rpx;position: absolute;bottom: 0;left: 0;}
 </style>

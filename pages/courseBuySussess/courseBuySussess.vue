@@ -14,7 +14,7 @@
 			</view>
 		</view>
 		
-		<view class="bg-white rounded10 m-3 p-3 color2 font-28 avoidOverflow">课程链接：http://www.iconfont.cn/search/index-indexhs</view>
+		<view class="bg-white rounded10 m-3 p-3 color2 font-28">课程链接：http://www.iconfont.cn/search/index-indexhs</view>
 		
 		<view class="hx bg-white rounded10 d-flex flex-column a-center py-4 mx-3">
 			<view class="font-28 color2 pb-4">课程核销码：GTDR58466</view>

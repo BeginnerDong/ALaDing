@@ -93,6 +93,37 @@
 							"navigationBarTitleText": "信息"
 						}
         }
+        ,{
+            "path" : "pages/anchor/anchor",
+            "style" : {
+							"navigationBarTitleText": "主播"
+						}
+        }
+        ,{
+            "path" : "pages/anchorDetail/anchorDetail",
+            "style" : {
+							"navigationBarTitleText": "主播详情"
+						}
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {
+							"navigationBarTitleText": "登录"
+						}
+        }
+        ,{
+            "path" : "pages/identityInformation/identityInformation",
+            "style" : {
+							"navigationBarTitleText": "身份信息"
+						}
+        }
+        
+        ,{
+            "path" : "pages/user-quanyi/user-quanyi",
+            "style" : {
+							"navigationBarTitleText": "我的权益"
+						}
+        }
     ],
 	"globalStyle": {
 		//"navigationStyle":"custom",

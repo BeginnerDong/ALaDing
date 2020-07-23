@@ -8,7 +8,10 @@
 					<view class="py-3 font-30 color2">{{item.title}}</view>
 					<view class="d-flex a-center pb-3">
 						<view class="price font-34 pr-1">{{item.price}}</view>
-						<view class="sign">{{item.behavior==1?'主播':'导师'}}</view>
+						<view class="sign flex">
+							<view>{{item.behavior==1?'主播':'导师'}}</view>
+							<image src="../../static/images/start.png" class="wh20"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -18,14 +21,14 @@
 
 		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
 			<view class="item" @click="showToast">
-				<image src="../../static/images/nabar2.png" mode=""></image>
-				<view>首页</view>
+				<image src="../../static/images/nabar1.png" mode=""></image>
+				<view>产品</view>
 			</view>
 			<view class="item .on">
-				<image src="../../static/images/nabar1-a.png" mode=""></image>
-				<view>商品</view>
+				<image src="../../static/images/nabar2-a.png" mode=""></image>
+				<view>课程</view>
 			</view>
-			<view class="item" @click="showToast">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/anchor/anchor'}})">
 				<image src="../../static/images/nabar3.png" mode=""></image>
 				<view>主播</view>
 			</view>
@@ -33,7 +36,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/login/login'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>
@@ -113,11 +116,12 @@
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0]
 						if (self.userData.parent_no == '') {
-							self.Router.redirectTo({
+							/* self.Router.redirectTo({
 								route: {
 									path: '/pages/invitation-code/invitation-code'
 								}
-							})
+							}) */
+							self.showAll = true
 						} else {
 							self.showAll = true
 						}
@@ -162,4 +166,6 @@
 		width: 100%;
 		height: 300rpx;
 	}
+	.course-item .wh20{width: 20rpx;height: 20rpx;margin-left: 5rpx;}
+	.sign{width: auto;padding: 0 5rpx;}
 </style>

@@ -20,9 +20,11 @@
 			</view>
 		</view>
 		<view class="px-3 bg-white mt-2"  :style="isIphoneX?'padding-bottom: 180rpx':''">
+			<view class="color6 font-30 py-3">课程简介</view>
 			<view class="content ql-editor" style="padding:0;"
 			v-html="mainData.content">
 			</view>
+			<view style="height: 160rpx;"></view>
 			
 			<view class="position-fixed bottom-0 borderT-f5 left-0 right-0 bg-white px-3" :style="isIphoneX?'padding-bottom: 40rpx':''">
 				<view class="submit my-2" @click="Router.navigateTo({route:{path:'/pages/courseBuy/courseBuy?id='+mainData.id}})">立即购买</view>

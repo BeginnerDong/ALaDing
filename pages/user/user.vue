@@ -64,6 +64,14 @@
 					<image src="../../static/images/about-icon3.png" mode=""></image>
 					<view>关于我们</view>
 				</view>
+				<button class="item"  @click="Router.navigateTo({route:{path:'/pages/identityInformation/identityInformation'}})">
+					<image src="../../static/images/about-icon5.png" mode=""></image>
+					<view>身份信息</view>
+				</button>
+				<button class="item"  @click="Router.navigateTo({route:{path:'/pages/user-quanyi/user-quanyi'}})">
+					<image src="../../static/images/about-icon6.png" mode=""></image>
+					<view>我的权益</view>
+				</button>
 				<button class="item" open-type="contact">
 					<image src="../../static/images/about-icon4.png" mode=""></image>
 					<view>专属客服</view>
@@ -75,14 +83,14 @@
 
 		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
 			<view class="item"  @click="showToast">
-				<image src="../../static/images/nabar2.png" mode=""></image>
-				<view>首页</view>
+				<image src="../../static/images/nabar1.png" mode=""></image>
+				<view>产品</view>
 			</view>
 			<view class="item" @click="Router.redirectTo({route:{path:'/pages/course/course'}})">
-				<image src="../../static/images/nabar1.png" mode=""></image>
-				<view>商品</view>
+				<image src="../../static/images/nabar2.png" mode=""></image>
+				<view>课程</view>
 			</view>
-			<view class="item"  @click="showToast">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/anchor/anchor'}})">
 				<image src="../../static/images/nabar3.png" mode=""></image>
 				<view>主播</view>
 			</view>
@@ -179,7 +187,8 @@
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0]
 						if(self.userData.parent_no==''){
-							self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
+							// self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
+							self.showAll = true
 						}else{
 							self.showAll = true
 						}

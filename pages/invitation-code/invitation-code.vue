@@ -5,16 +5,25 @@
 		</view>
 		<view class="invi-txt text-center position-relative top-0 w-100">
 			<image src="../../static/images/the-invitationl-img.png" mode=""></image>
-			<view class="font-30 colorf pt-5 pb-2">帮你实现不止“3”个愿望</view>
-			<view class="font-24 colorf pb-2">社交+电商+短视频+直播带货</view>
-			<view class="font-24 colorf pb-3">挑选属于你的优质主播  让直播带货更简单</view>
+			<view v-if="codeCurrent==1">
+				<view class="font-30 colorf pt-5 pb-2">帮你实现不止“3”个愿望</view>
+				<view class="font-24 colorf pb-2">社交+电商+短视频+直播带货</view>
+				<view class="font-24 colorf pb-3">挑选属于你的优质主播  让直播带货更简单</view>
+			</view>
+			<view v-else>
+				<view class="font-30 colorf pt-5 pb-2">实现你3个愿望~阿拉丁</view>
+				<view class="font-24 colorf pb-3">京东海量专属优惠，购买省钱 | 分享赚钱</view>
+			</view>
 		</view>
 		<view class="inviCard mx-3 rounded20 position-relative mt-2 shadow">
 			<!-- 没有邀请码 -->
 			<view class="d-flex flex-column a-center" v-if="codeCurrent==1">
 				<view class="font-3 color2 font-w py-5 mt-2">请输入邀请码</view>
 				<input type="text" style="padding: 0 20rpx;font-weight: 700;" v-model="code" @blur="searchUser()"/>
-				<view class="font-24 pt-3 txt" @click="maskShow()">没有邀请码？</view>
+				<view class="font-24 pt-3 flex0">
+					<view class="txt" @click="maskShow()">没有邀请码？</view>
+					<view class="txt" @click="Router.navigateTo({route:{path:'/pages/anchor/anchor'}})">商家入口</view>
+				</view>
 			</view>
 			
 			<!-- 换个邀请码 -->
@@ -224,7 +233,7 @@ page{width: 100%;height: 100%;}
 .invi-txt image{width: 184rpx;height: 58rpx;margin: 0 auto;}
 .inviCard{height: 784rpx;width: 690rpx;background-color: #fff;}
 .inviCard input{height: 80rpx;width: 540rpx;border: 1px solid #d5d5d5;border-radius: 40rpx;}
-.inviCard .txt{color: #fed513;}
+.inviCard .txt{color: #fed513;padding: 0 40rpx;}
 
 .inviPer image{width: 100rpx;height: 100rpx;}
 
