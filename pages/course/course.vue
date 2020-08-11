@@ -70,14 +70,16 @@
 			tokenGet() {
 				const self = this;
 				const postData = {
-					searchItem: {
+					/* searchItem: {
 						user_no: 'U706206460389216'
-					}
+					} */
 				};
+				postData.tokenFuncName = 'getProjectToken';
 				console.log('postData', postData)
 				const callback = (res) => {
 					if (res.solely_code == 100000) {
 						self.userData = res.info;
+						console.log('self.userData',self.userData)
 						if (self.userData.parent_no == '') {
 							self.Router.redirectTo({
 								route: {
@@ -116,11 +118,11 @@
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0]
 						if (self.userData.parent_no == '') {
-							/* self.Router.redirectTo({
+							self.Router.redirectTo({
 								route: {
 									path: '/pages/invitation-code/invitation-code'
 								}
-							}) */
+							})
 							self.showAll = true
 						} else {
 							self.showAll = true

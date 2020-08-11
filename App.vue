@@ -3,16 +3,15 @@
 	export default {
 		onLaunch: function() {
 			let self = this;
-			console.log(222)
 			wx.getSystemInfo({
 				success: res => {
 					let modelmes = res.model;
 					if (modelmes.search('iPhone X') != -1) {
-						wx.setStorageSync('isIphoneX', true)
+						wx.setStorageSync('isIphoneX', true);
 					}else{
-						wx.setStorageSync('isIphoneX', false)
+						wx.setStorageSync('isIphoneX', false);
 					}
-					wx.setStorageSync('modelmes', modelmes)
+					wx.setStorageSync('modelmes', modelmes);
 				}
 			})
 		},

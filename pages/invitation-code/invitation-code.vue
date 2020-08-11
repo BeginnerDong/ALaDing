@@ -145,6 +145,17 @@
 				postData.data = {
 					parent_no:self.shareUser.user_no
 				};
+				var rankArray = ['anchor','tutor','partner','spartner'];
+				if(self.shareUser.behavior>0){
+					postData.data[rankArray[self.shareUser.behavior-1]] = self.shareUser.user_no;
+					
+					for(var i=self.shareUser.behavior;i<rankArray.length;i++){
+						if(self.shareUser[rankArray[i]]){
+							postData.data[rankArray[i]] = self.shareUser[rankArray[i]];
+						};
+					};
+				};
+				
 				if(!wx.getStorageSync('user_info')||wx.getStorageSync('user_info').headImgUrl==''||!wx.getStorageSync('user_info').headImgUrl){
 				  postData.refreshToken = true;
 				};
