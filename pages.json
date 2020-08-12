@@ -23,7 +23,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页", //设置页面标题文字
+				"navigationBarTitleText": "阿拉丁", //设置页面标题文字
 				"onReachBottomDistance": 100
 			}
 		}, {
@@ -122,6 +122,12 @@
             "path" : "pages/user-quanyi/user-quanyi",
             "style" : {
 							"navigationBarTitleText": "我的权益"
+						}
+        }
+        ,{
+            "path" : "pages/car/car",
+            "style" : {
+							"navigationBarTitleText": "购物车"
 						}
         }
     ],
