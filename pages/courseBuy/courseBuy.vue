@@ -15,7 +15,7 @@
 				<view class="d-flex a-center line-h ">
 					<view class="price font-34 pr-2">{{mainData.price?mainData.price:''}}</view>
 					<view class="sign flex">
-						<view>{{item.behavior==1?'主播':'导师'}}</view>
+						<view>{{mainData.behavior==1?'主播':'导师'}}</view>
 						<image src="../../static/images/start.png" class="wh20"></image>
 					</view>
 				</view>

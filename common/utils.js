@@ -1,5 +1,5 @@
 import assetsConfig from "@/config/assets.config.js";
-
+import token from "@/common/token.js";
 export default {
 	
 	
@@ -82,7 +82,7 @@ export default {
 			};
 		};
 		wx.uploadFile({
-			url: 'http://106.12.155.217/ald/public/index.php/api/v1/Base/FtpFile/upload',
+			url: 'https://ald.solelyfinance.com/api/public/index.php/api/v1/Base/FtpFile/upload',
 			filePath: filePath,
 			name: name,
 			formData: formData,
@@ -99,6 +99,7 @@ export default {
 				};
 			},
 			fail: function(err) {
+				console.log('err',err)
 				wx.showToast({
 					title: '网络故障',
 					icon: 'fail',
@@ -169,7 +170,7 @@ export default {
 
 	inArray(value, array) {
 		
-		return array.indexOf(parseInt(value));
+		return array.indexOf(value);
 	},
 
 	finishFunc(funcName) {

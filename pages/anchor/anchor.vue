@@ -48,17 +48,17 @@
 			</view>
 			
 			<!-- 主播列表 -->
-			<view class="flex1 py-3 bB-e1 anchor" v-for="v in 5" @click="Router.navigateTo({route:{path:'/pages/anchorDetail/anchorDetail'}})" :key="i">
-				<image src="../../static/images/the host-img.png" class="anchorImg"></image>
+			<view class="flex1 py-3 bB-e1 anchor" v-for="(item,index) in mainData" 
+			@click="Router.navigateTo({route:{path:'/pages/anchorDetail/anchorDetail'}})" :key="index">
+				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" class="anchorImg"></image>
 				<view class="font-24 color6 pl-2 flex-1 flex5 py-1 anchorCon">
 					<view class="flex">
-						<view class="font-30 color2 font-w">小海南</view>
-						<view class="tag tagP">全网</view>
-						<view class="tag tagR">京东</view>
-						<view class="tag tagB">抖音</view>
+						<view class="font-30 color2 font-w">{{item.name}}</view>
+						<view class="tag" v-for="(c_item,c_index) in item.anchorPlant" :key="c_index">{{c_item}}</view>
+						
 					</view>
-					<view>粉丝数量：2563.1万</view>
-					<view>客单价：95.56元</view>
+					<view>粉丝数量：{{item.fansCount}}万</view>
+					<view>客单价：{{item.orderPrice}}元</view>
 					<view>近3月直播：72场</view>
 				</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon"></image>
@@ -104,9 +104,30 @@
 				Router:this.$Router,
 				tj_show:false,
 				navCurr:0,
-				liCurr:0
+				liCurr:0,
+				searchItem:{
+					thirdapp_id:2,
+					goodAt:['not in',['']]
+				},
+				mainData:[]
 			}
 		},
+		
+		onLoad(options) {
+			const self = this;
+			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+			self.$Utils.loadAll(['getMainData'], self);
+		},
+		
+		onReachBottom() {
+			console.log('onReachBottom')
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
 			Show(i){
 				const self = this;
@@ -122,7 +143,49 @@
 			changeLi(i){
 				const self = this;
 				self.liCurr = i
-			}
+			},
+			
+			getMainData(isNew) {
+				const self = this;
+				if (isNew) {
+					self.mainData = [];
+					self.paginate = {
+						count: 0,
+						currentPage: 1,
+						pagesize: 10,
+						is_page: true,
+					}
+				};
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.getBefore = {
+					user:{
+						tableName:'User',
+						middleKey:'user_no',
+						key:'user_no',
+						searchItem:{
+							behavior:['in',[1]]
+						},
+						condition:'in'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+						
+						
+						for (var i = 0; i < self.mainData.length; i++) {
+							self.mainData[i].anchorPlant = self.mainData[i].anchorPlant.split(',')
+						}
+					};
+					console.log('self.mainData',self.mainData)
+					self.$Utils.finishFunc('getMainData');
+			
+				};
+				self.$apis.userInfoGet(postData, callback);
+			},
 		}
 	}
 </script>

@@ -64,7 +64,7 @@
 					<image src="../../static/images/about-icon3.png" mode=""></image>
 					<view>关于我们</view>
 				</view>
-				<button class="item"  @click="Router.navigateTo({route:{path:'/pages/identityInformation/identityInformation'}})">
+				<button class="item" v-if="userData.behavior==1"  @click="Router.navigateTo({route:{path:'/pages/identityInformation/identityInformation'}})">
 					<image src="../../static/images/about-icon5.png" mode=""></image>
 					<view>身份信息</view>
 				</button>
@@ -82,7 +82,7 @@
 		</view>
 
 		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
-			<view class="item"  @click="showToast">
+			<view class="item"  @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
 				<image src="../../static/images/nabar1.png" mode=""></image>
 				<view>产品</view>
 			</view>
@@ -94,7 +94,7 @@
 				<image src="../../static/images/nabar3.png" mode=""></image>
 				<view>主播</view>
 			</view>
-			<view class="item"  @click="showToast">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/car/car'}})">
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>

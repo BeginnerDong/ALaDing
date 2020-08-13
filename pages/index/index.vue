@@ -11,12 +11,21 @@
 				</view>
 				
 				<view class="my-2 pb-2 d-flex a-center j-sb line-h colorf list">
-					<view class="on">推荐</view>
-					<view>服饰</view>
-					<view>美妆护肤</view>
-					<view>食品生鲜</view>
-					<view>家居厨具</view>
-					<view>数码产品</view>
+					<view :class="post.eliteId==23?'on':''" @click="change(23)">为你推荐</view>
+					<view :class="post.eliteId==22?'on':''" @click="change(22)">实时热销榜</view>
+					<view :class="post.eliteId==1?'on':''" @click="change(1)">好券商品</view>
+					<view :class="post.eliteId==2?'on':''" @click="change(2)">精选卖场</view>
+					<view :class="post.eliteId==10?'on':''" @click="change(10)">9.9包邮</view>
+					<view :class="post.eliteId==15?'on':''" @click="change(15)">京东配送</view>
+					<view :class="post.eliteId==24?'on':''" @click="change(24)">数码家电</view>
+					<view :class="post.eliteId==25?'on':''" @click="change(25)">超市</view>
+					<view :class="post.eliteId==26?'on':''" @click="change(26)">母婴玩具</view>
+					<view :class="post.eliteId==27?'on':''" @click="change(27)">家具日用</view>
+					<view :class="post.eliteId==28?'on':''" @click="change(28)">美妆穿搭</view>
+					<view :class="post.eliteId==29?'on':''" @click="change(29)">医药保健</view>
+					<view :class="post.eliteId==30?'on':''" @click="change(30)">图书文具</view>
+					<view :class="post.eliteId==31?'on':''" @click="change(31)">今日必推</view>
+					<view :class="post.eliteId==32?'on':''" @click="change(32)">京东好物</view>
 				</view>
 				
 				<!-- banner -->
@@ -39,27 +48,28 @@
 			<image src="../../static/images/home-icon.png" class="icon"></image>
 		</view>
 		
-		<view class="mx-3 py-4 d-flex bB-e1">
+		<view class="mx-3 py-4 d-flex bB-e1" v-for="(item,index) in mainData" :key="index">
 			<view class="position-relative">
-				<image src="../../static/images/car-img.png" class="wh250 rounded10"></image>
-				<view class="tgTag">推广赚25</view>
+				<image :src="item.imageInfo.imageList[0].url" class="wh250 rounded10"></image>
+				<view class="tgTag">推广赚{{item.commissionInfo.commission}}</view>
 			</view>
 			<view class="d-flex flex-column pl-2" style="height: 250rpx;">
-				<view class="font-30 flex-1 mb-2 avoidOverflow2">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</view>
-				<view class="line-h color6 font-24">2563条评论 推广率76%</view>
-				<view class="line-h py-3 color6">
-					<text class="colorR pr-2">券后价￥99.0</text>
-					<text class="font-24">京东价￥190.0</text>
+				<view class="font-30 flex-1 mb-2 avoidOverflow2">{{item.skuName}}</view>
+				<view class="line-h color6 font-24">{{item.comments}}条评论 推广率{{item.goodCommentsShare}}%</view>
+				<view class="line-h py-3 color6" style="padding-top:25rpx">
+					<text class="colorR pr-2">券后价￥{{item.priceInfo.lowestPrice}}</text>
+					<text class="font-24">京东价￥{{item.priceInfo.price}}</text>
 				</view>
 				<view class="line-h d-flex a-center font-26 colorf" style="line-height: 44rpx;">
-					<view class="position-relative mr-2 text-center" style="height: 44rpx;width: 120rpx;">
+					<!-- <view class="position-relative mr-2 text-center" style="height: 44rpx;width: 120rpx;">
 						<image src="../../static/images/car-icon3.png" mode="widthFix"></image>
 						<view class="position-absoluteXY pr-1">100元券</view>
-					</view>
-					<view class="Mbg d-flex a-center rounded px-1">
+					</view> -->
+					<view class="Mbg d-flex a-center rounded px-1" @click="addCar(index)"> 
 						<image src="../../static/images/car-icon.png" class="wh20"></image>
 						<view>直播推广</view>
 					</view>
+					<view style="margin-left: 20rpx;color:#E81B1B">佣金比例{{item.commissionInfo.commissionShare}}%</view>
 				</view>
 			</view>
 		</view>
@@ -99,14 +109,79 @@
 		data() {
 			return {
 				Router:this.$Router,
-				is_show: false
+				is_show: false,
+				post:{
+					eliteId:23,
+					pageIndex:1,
+				},
+				mainData:[]
 			}
 		},
-		onLoad() {
+		
+		onLoad(options) {
 			const self = this;
-			
+			self.$Utils.loadAll(['getMainData'], self);
 		},
+		
+		onReachBottom() {
+			console.log('onReachBottom')
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.post.pageIndex++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
+			
+			addCar(index) {
+				const self = this;
+				var obj = self.mainData[index];
+				var array = self.$Utils.getStorageArray('cartData');
+				for (var i = 0; i < array.length; i++) {
+					if (array[i].skuId == self.mainData[index].skuId) {
+						var target = array[i]
+					}
+				}
+				
+				console.log(target)
+				if (target) {
+					target.count = target.count + 1
+				} else {
+					console.log(111)
+					var target = self.mainData[index];
+					target.count = 1;
+					target.isSelect = true;
+				}
+				self.$Utils.showToast('已加入购物车', 'none');
+				self.$Utils.setStorageArray('cartData', target, 'skuId', 999);
+			},
+			
+			change(id){
+				const self = this;
+				if(self.post.eliteId!=id){
+					self.post.eliteId = id;
+					self.getMainData(true)
+				}
+			},
+			
+			getMainData(isNew) {
+				const self = this;
+				if(isNew){
+					self.post.pageIndex = 1
+				};
+				const postData = self.post;
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+					};
+					self.$Utils.finishFunc('getMainData');
+			
+				};
+				self.$apis.searchProduct(postData, callback);
+			},
+			
+			
 			
 		}
 	};
