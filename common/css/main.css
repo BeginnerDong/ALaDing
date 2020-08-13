@@ -88,6 +88,12 @@ uni-button:after{border: 0;}
 .VipPrice{padding-right:10rpx;height: 40rpx;line-height: 40rpx;min-width:56rpx;background-color: #f3ddbd;color: #d9a353;position: relative; margin-left: 24rpx;text-align: center;}
 .VipPrice .arrow{width:22rpx;height:100%;position: absolute;top: 0;left:-20rpx;}
 
+/* 直播 */
+.proHead{line-height: 70rpx;}
+.bb{width: 50%; }
+.bb:nth-child(1){border-right: 1px solid #e1e1e1;}
+.pro{height: 130rpx;border-bottom: 1px solid #e1e1e1;font-size: 26rpx;}
+.pro .bb{padding: 30rpx;box-sizing: border-box;}
 
 /* 底部导航 */
 .footer{height: 130rpx;width:100%;border-top: 1px solid #f5f5f5;position: fixed;bottom: 0;display: flex;justify-content: space-between;background-color: #fff;align-items: flex-end;padding-bottom: 30rpx;box-sizing: border-box;z-index: 1000;}

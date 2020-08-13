@@ -125,7 +125,19 @@
 				"navigationBarTitleText": "购物车"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/car-submit/car-submit",
+            "style" : {
+							"navigationBarTitleText": "提交成功"
+						}
+        }
+        ,{
+            "path" : "pages/user-live/user-live",
+            "style" : {
+							"navigationBarTitleText": "直播推广"
+						}
+        }
+    ],
 	"globalStyle": {
 		//"navigationStyle":"custom",
 		"navigationBarTextStyle": "white",

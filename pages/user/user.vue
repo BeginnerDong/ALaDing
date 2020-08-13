@@ -76,6 +76,10 @@
 					<image src="../../static/images/about-icon4.png" mode=""></image>
 					<view>专属客服</view>
 				</button>
+				<view class="item" @click="Router.navigateTo({route:{path:'/pages/user-live/user-live'}})">
+					<image src="../../static/images/icon01.png" mode=""></image>
+					<view>直播推广</view>
+				</view>
 				
 				
 			</view>
@@ -269,6 +273,10 @@
 		width: 52rpx;
 		height: 46rpx;
 		margin: 40rpx 0 20rpx;
+	}
+	
+	.itemBox .item:last-child image{
+		width: 45rpx;
 	}
 
 	button {
