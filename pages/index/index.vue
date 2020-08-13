@@ -122,7 +122,7 @@
 		
 		onLoad(options) {
 			const self = this;
-			self.$Utils.loadAll(['getMainData','getSliderData'], self);
+			self.$Utils.loadAll(['getMainData','getSliderData','getUserData'], self);
 		},
 		
 		onReachBottom() {
