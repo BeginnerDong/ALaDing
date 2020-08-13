@@ -66,7 +66,7 @@
 				<image src="../../static/images/nabar4-a.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.redirectTo({route:{path:'/pages/login/login'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>
@@ -85,7 +85,8 @@
 					
 				],
 				is_allDelt:false,
-				isChooseAll:true
+				isChooseAll:true,
+				Router:this.$Router,
 			}
 		},
 		
@@ -134,6 +135,10 @@
 								}
 							}
 						};
+						uni.setStorageSync('ids',data.info.ids);
+						setTimeout(function() {
+							self.Router.navigateTo({route:{path:'/pages/car-submit/car-submit'}})
+						}, 1000);
 					} else {
 						uni.setStorageSync('canClick', true);
 						self.$Utils.showToast(data.msg, 'none', 1000)

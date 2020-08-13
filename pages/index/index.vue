@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="showAll">
 		
 		<view class="position-relative pb-3">
 			<image src="../../static/images/home-img.png" mode="widthFix" class="position-absolute top-0"></image>
@@ -7,7 +7,7 @@
 			<view class="pt-2 px-3 position-relative">
 				<view class="d-flex a-center px-3 ss">
 					<image src="../../static/images/the host-icon.png" class="ss-icon mr-2"></image>
-					<input type="text" value="" placeholder="搜索你想要推广的商品"/>
+					<input type="text" value="" placeholder="京东接口暂未支持"/>
 				</view>
 				
 				<view class="my-2 pb-2 d-flex a-center j-sb line-h colorf list">
@@ -30,9 +30,9 @@
 				
 				<!-- banner -->
 				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FF7B8E">
-					<block>
+					<block v-for="(item,index) in sliderData.mainImg">
 						<swiper-item>
-								<image src="../../static/images/the%20host-banner.png" ></image>
+							<image :src="item.url" ></image>
 						</swiper-item>
 					</block>
 				</swiper>
@@ -94,7 +94,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.redirectTo({route:{path:'/pages/login/login'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>
@@ -114,13 +114,15 @@
 					eliteId:23,
 					pageIndex:1,
 				},
-				mainData:[]
+				mainData:[],
+				sliderData:{},
+				showAll:false
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
-			self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getMainData','getSliderData'], self);
 		},
 		
 		onReachBottom() {
@@ -133,6 +135,25 @@
 		},
 		
 		methods: {
+			
+			getUserData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userData = res.info.data[0]
+						if(self.userData.parent_no==''){
+							self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
+							//self.showAll = true
+						}else{
+							self.showAll = true
+						}
+					}
+					self.$Utils.finishFunc('getUserData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
 			
 			addCar(index) {
 				const self = this;
@@ -168,6 +189,7 @@
 			getMainData(isNew) {
 				const self = this;
 				if(isNew){
+					self.mainData = [];
 					self.post.pageIndex = 1
 				};
 				const postData = self.post;
@@ -181,6 +203,22 @@
 				self.$apis.searchProduct(postData, callback);
 			},
 			
+			getSliderData() {
+				const self = this;
+				const postData = {
+					searchItem:{
+						title:'首页轮播'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.sliderData = res.info.data[0]
+					};
+					self.$Utils.finishFunc('getSliderData');
+			
+				};
+				self.$apis.labelGet(postData, callback);
+			},
 			
 			
 		}

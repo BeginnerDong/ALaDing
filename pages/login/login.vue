@@ -8,14 +8,14 @@
 		
 		<view class="mx65 d-flex a-start">
 			<image src="../../static/images/thelogin-icon.png" class="dh-icon mr-3"></image>
-			<input type="text" value="" placeholder="输入手机号码" />
+			<input type="text" value="" placeholder="输入手机号码" v-model="phone"/>
 		</view>
 		<view class="mx65 d-flex a-start">
 			<image src="../../static/images/thelogin-icon1.png" class="aq-icon mr-3"></image>
 			<input type="text" value="" placeholder="输入验证码" />
 		</view>
 		
-		<view class="btn600" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">确定</view>
+		<view class="btn600" @click="userInfoUpdate">确定</view>
 		
 	</view>
 </template>
@@ -24,10 +24,31 @@
 	export default {
 		data() {
 			return {
-				Router:this.$Router
+				Router:this.$Router,
+				phone:''
 			}
 		},
 		methods: {
+			
+			userInfoUpdate(){
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.data = {
+					phone:self.phone
+				};
+				const callback = (res) => {
+					if (res.solely_code==100000) {
+						self.$Utils.showToast('登录成功','none');
+						setTimeout(function() {
+							self.Router.redirectTo({route:{path:'/pages/user/user'}})
+						}, 1000);	
+					}else{
+						self.$Utils.showToast(res.msg, 'none');
+					}
+				};
+				self.$apis.userInfoUpdate(postData, callback);
+			},
 			
 		}
 	}

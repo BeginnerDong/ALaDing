@@ -4,16 +4,18 @@
 		<view class="px-3 py-2 Mbg">
 			 <view class="bg-white rounded30 flex1 px-3">
 				 <image src="../../static/images/the host-icon.png" class="wh29 p-a mr-2"></image>
-				 <input type="text" value="" placeholder="搜索你想要推广的商品" />
+				 <input type="text" value="" placeholder="搜索" v-model="keywords" @confirm="search"/>
 			 </view>
 		</view>
 		
 		<!-- banner -->
 		<view class="banner m-3">
 			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FF7B8E">
-				<swiper-item>
-					<image src="../../static/images/the host-banner.png" ></image>
-				</swiper-item>
+				<block v-for="(item,index) in sliderData.mainImg" :key="index">
+					<swiper-item>
+						<image :src="item.url" ></image>
+					</swiper-item>
+				</block>
 			</swiper>
 		</view>
 		
@@ -38,18 +40,27 @@
 		
 		<view class="px-3 py-1 position-relative">
 			<!-- 导航弹框 -->
-			<view class="anchor-mask" v-show="tj_show">
+			<view class="anchor-mask" v-show="tj_show&&navCurr==1">
 				<view class="px-3 bg-white rounded20-B">
-					<view class="flex1 font-26 py-4 bB-e1" v-for="(v,i) in 3" :key="i" @click="changeLi(i)">
-						<view>不限</view>
-						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="liCurr==i"></image>
+					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in goodAtData" :key="index" @click="goodChoose(index)">
+						<view>{{item}}</view>
+						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="goodIndex==index"></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class="anchor-mask" v-show="tj_show&&navCurr==2">
+				<view class="px-3 bg-white rounded20-B">
+					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in fans" :key="index" @click="fansChoose(index)">
+						<view>{{item.name}}</view>
+						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="fansIndex==index"></image>
 					</view>
 				</view>
 			</view>
 			
 			<!-- 主播列表 -->
-			<view class="flex1 py-3 bB-e1 anchor" v-for="(item,index) in mainData" 
-			@click="Router.navigateTo({route:{path:'/pages/anchorDetail/anchorDetail'}})" :key="index">
+			<view class="flex1 py-3 bB-e1 anchor" v-for="(item,index) in mainData" v-if="mainData.length>0" :data-user_no="item.user_no"
+			@click="Router.navigateTo({route:{path:'/pages/anchorDetail/anchorDetail?user_no='+$event.currentTarget.dataset.user_no}})" :key="index">
 				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" class="anchorImg"></image>
 				<view class="font-24 color6 pl-2 flex-1 flex5 py-1 anchorCon">
 					<view class="flex">
@@ -63,6 +74,7 @@
 				</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon"></image>
 			</view>
+			<view style="width: 100%;text-align: center;margin-top: 50rpx;" v-if="mainData.length==0">暂时没有符合条件的主播~</view>
 		</view>
 		
 		
@@ -86,7 +98,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.redirectTo({route:{path:'/pages/login/login'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>
@@ -107,16 +119,23 @@
 				liCurr:0,
 				searchItem:{
 					thirdapp_id:2,
-					goodAt:['not in',['']]
+					anchorPlant:['not in',['']]
 				},
-				mainData:[]
+				goodAtData:[],
+				mainData:[],
+				sliderData:{},
+				fans:[{name:'不限',type:'delete',value:[]},{name:'100-1000',type:'between',value:[100,1000]}
+				,{name:'1000-5000',type:'between',value:[1000,5000]},{name:'5000-1万',type:'between',value:[5000,10000]},
+				{name:'1万-10万',type:'between',value:[10000,100000]},{name:'10万以上',type:'higher',value:100000}],
+				goodIndex:-1,
+				keywords:''
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getMainData','getSliderData','getGoodAtData'], self);
 		},
 		
 		onReachBottom() {
@@ -129,6 +148,90 @@
 		},
 		
 		methods: {
+			
+			search(){
+				const self = this;
+				if(self.keywords!=''){
+					self.searchItem.name = ['like',['%'+self.keywords+'%']];
+				}else{
+					delete self.searchItem.name
+				};
+				self.getMainData(true)
+			},
+			
+			fansChoose(index){
+				const self = this;
+				if(self.fansIndex!=index){
+					if(self.fans[index].type=='delete'&&self.searchItem.fansCount){
+						delete self.searchItem.fansCount
+					}else if(self.fans[index].type=='higher'){
+						self.searchItem.fansCount = ['>',self.fans[index].value]
+					}else if(self.fans[index].type=='between'){
+						self.searchItem.fansCount = ['between',self.fans[index].value]
+					};
+					self.tj_show = false;
+					self.navCurr = 0;
+					self.getMainData(true)
+				}
+			},
+			
+			goodChoose(index){
+				const self = this;
+				if(self.goodIndex!=index){
+					self.goodIndex = index;
+					self.searchItem.goodAt = ['like',['%'+self.goodAtData[self.goodIndex]+'%']];
+					self.tj_show = false;
+					self.navCurr = 0;
+					self.getMainData(true)
+				}
+			},
+			
+			getGoodAtData() {
+				const self = this;
+				const postData = {
+					searchItem:{
+						title:'擅长品类'
+					}
+				};
+				postData.getAfter = {
+					child:{
+						tableName:'Label',
+						middleKey:'id',
+						key:'parentid',
+						searchItem:{
+							status:1
+						},
+						condition:'='
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						for (var i = 0; i < res.info.data[0].child.length; i++) {
+							self.goodAtData.push(res.info.data[0].child[i].title)
+						}
+					};
+					self.$Utils.finishFunc('getGoodAtData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
+			getSliderData() {
+				const self = this;
+				const postData = {
+					searchItem:{
+						title:'主播轮播'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.sliderData = res.info.data[0]
+					};
+					self.$Utils.finishFunc('getSliderData');
+			
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
 			Show(i){
 				const self = this;
 				if(self.navCurr != i){

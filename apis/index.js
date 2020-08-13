@@ -18,7 +18,7 @@ export default {
 	
 	searchProduct(param, callback) {
 		var allParams = {
-			url: 'Project/Solely/searchProduct',
+			url: 'Project/Solely/getProduct',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {
@@ -370,6 +370,18 @@ export default {
 	qrCodeUpdate(param, callback) {
 		var allParams = {
 			url: 'Common/Qrcode/update',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	logGet(param, callback) {
+		var allParams = {
+			url: 'Common/Log/get',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {

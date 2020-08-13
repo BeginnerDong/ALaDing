@@ -190,6 +190,10 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0]
+						if(self.userData.info.phone==''){
+							self.Router.redirectTo({route:{path:'/pages/login/login'}})
+							return
+						};
 						if(self.userData.parent_no==''){
 							// self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
 							self.showAll = true

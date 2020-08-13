@@ -226,6 +226,10 @@ export default {
 		}
 		return paramsStr.substring(0, paramsStr.length - 1);
 	},
+	
+	substr(str,start,end){
+		return str.substr(start,end)
+	},
 
 	/* 
 	 * obj 转 路由地址带参数

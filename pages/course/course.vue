@@ -36,7 +36,7 @@
 				<image src="../../static/images/nabar4.png" mode=""></image>
 				<view>购物车</view>
 			</view>
-			<view class="item" @click="Router.redirectTo({route:{path:'/pages/login/login'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})">
 				<image src="../../static/images/nabar5.png" mode=""></image>
 				<view>我的</view>
 			</view>

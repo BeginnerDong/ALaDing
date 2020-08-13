@@ -13,14 +13,14 @@
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">擅长品类</view>
 			<view class="flex" @click="isShow('good')">
-				<view class="font-24 color9">{{submitData.goodAt!=''?submitData.goodAt:'请选择(可多选)'}}</view>
+				<view class="font-24" :style="submitData.goodAt!=''?'color:#222':'color:#888'">{{submitData.goodAt!=''?submitData.goodAt:'请选择(可多选)'}}</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">直播平台</view>
 			<view class="flex" @click="isShow('plant')">
-				<view class="font-24 color9">{{submitData.anchorPlant!=''?submitData.anchorPlant:'请选择(可多选)'}}</view>
+				<view class="font-24" :style="submitData.anchorPlant!=''?'color:#222':'color:#888'">{{submitData.anchorPlant!=''?submitData.anchorPlant:'请选择(可多选)'}}</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
@@ -36,21 +36,21 @@
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">男性粉丝占比</view>
 			<view class="flex" @click="isShow('male')">
-				<view class="font-24 color9">{{submitData.manFansPercent!=''?submitData.manFansPercent:'请选择'}}</view>
+				<view class="font-24" :style="submitData.manFansPercent!=''?'color:#222':'color:#888'">{{submitData.manFansPercent!=''?submitData.manFansPercent:'请选择'}}</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">女性粉丝占比</view>
 			<view class="flex" @click="isShow('famale')">
-				<view class="font-24 color9">{{submitData.womenFansPercent!=''?submitData.womenFansPercent:'请选择'}}</view>
+				<view class="font-24"  :style="submitData.womenFansPercent!=''?'color:#222':'color:#888'">{{submitData.womenFansPercent!=''?submitData.womenFansPercent:'请选择'}}</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">所属机构</view>
 			<view class="flex" @click="isShow('institute')">
-				<view class="font-24 color9">{{submitData.institute!=''?submitData.institute:'请选择(可多选)'}}</view>
+				<view class="font-24"   :style="submitData.institute!=''?'color:#222':'color:#888'">{{submitData.institute!=''?submitData.institute:'请选择(可多选)'}}</view>
 				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
@@ -326,6 +326,7 @@
 						for (var i = 0; i < res.info.data[0].child.length; i++) {
 							self.instituteData.push(res.info.data[0].child[i].title)
 						}
+						self.getUserData()
 					};
 					self.$Utils.finishFunc('getInstituteData');
 				};
@@ -427,10 +428,25 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0];
+						self.submitData.mainImg = self.userData.mainImg;
+						self.submitData.name = self.userData.name;
+						self.submitData.goodAt = self.userData.goodAt;
+						self.chooseGoodArray = self.userData.goodAt.split(',')
+						self.submitData.anchorPlant = self.userData.anchorPlant;
+						self.choosePlantArray = self.userData.anchorPlant.split(',')
+						self.submitData.institute = self.userData.institute;
+						self.chooseInstituteArray = self.userData.institute.split(',')
+						self.submitData.orderPrice = self.userData.orderPrice;
+						self.submitData.fansCount = self.userData.fansCount;
+						self.submitData.manFansPercent = self.userData.manFansPercent;
+						self.submitData.womenFansPercent = self.userData.womenFansPercent;
+						self.maleRate = self.userData.manFansPercent;
+						self.famaleRate = self.userData.famaleRate;
 					}
 					self.$Utils.finishFunc('getUserData');
+
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userInfoGet(postData, callback);
 			},
 			
 			userInfoUpdate(){
