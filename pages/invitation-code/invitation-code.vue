@@ -145,13 +145,17 @@
 				postData.data = {
 					parent_no:self.shareUser.user_no
 				};
+				postData.searchItem = {
+					'user_no':self.userData.user_no
+				};
 				var rankArray = ['anchor','tutor','partner','spartner'];
 				if(self.shareUser.behavior>0){
 					postData.data[rankArray[self.shareUser.behavior-1]] = self.shareUser.user_no;
-					
-					for(var i=self.shareUser.behavior;i<rankArray.length;i++){
-						if(self.shareUser[rankArray[i]]){
-							postData.data[rankArray[i]] = self.shareUser[rankArray[i]];
+					if(empty(self.shareUser[rankArray[self.shareUser.behavior-1]])){
+						for(var i=self.shareUser.behavior;i<rankArray.length;i++){
+							if(self.shareUser[rankArray[i]]){
+								postData.data[rankArray[i]] = self.shareUser[rankArray[i]];
+							};
 						};
 					};
 				};
