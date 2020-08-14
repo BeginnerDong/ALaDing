@@ -19,8 +19,8 @@
 					</view>
 				</view>
 
-				<view class="flex0 colorM rounded10 borderM lxBtn">
-					<image src="../../static/images/the host-icon5.png" class="wh32 mr-1"></image>
+				<view class="flex0 colorM rounded10 borderM lxBtn" @click="phoneCall">
+					<image src="../../static/images/the-host-icon5.png" class="wh32 mr-1"></image>
 					<view>联系主播</view>
 				</view>
 			</view>
@@ -30,7 +30,7 @@
 
 		<view>
 			<view class="flex0 py-3">
-				<image src="../../static/images/the host-icon6.png" class="anchorIcon"></image>
+				<image src="../../static/images/the-host-icon6.png" class="anchorIcon"></image>
 				<view class="font-32 font-w">PV</view>
 			</view>
 			<view class="qiun-charts">
@@ -46,7 +46,7 @@
 
 		<view>
 			<view class="flex0 py-3">
-				<image src="../../static/images/the host-icon6.png" class="anchorIcon"></image>
+				<image src="../../static/images/the-host-icon6.png" class="anchorIcon"></image>
 				<view class="font-32 font-w">UV</view>
 			</view>
 			<view class="qiun-charts">
@@ -80,10 +80,12 @@
 		onLoad(options) {
 			const self = this;
 			self.user_no = options.user_no;
-			self.$Utils.loadAll(['getMainData', 'getLogData'], self);
+			self.$Utils.loadAll(['getMainData','getAboutUsData'], self);
 
 		},
 		methods: {
+			
+			
 
 			getMainData() {
 				const self = this;
@@ -110,6 +112,10 @@
 				const self = this;
 				const postData = {};
 				postData.tokenFuncName = 'getProjectToken';
+				postData.searchItem = {
+					user_no: self.user_no,
+					user_type: 0
+				};
 				postData.order = {
 					anchorTime: 'asc'
 				};
@@ -175,6 +181,39 @@
 					self.$Utils.finishFunc('getLogData');
 				};
 				self.$apis.logGet(postData, callback);
+			},
+			
+			phoneCall(){
+				const self = this;
+				uni.makePhoneCall({
+					phoneNumber:self.aboutUsData.small_title
+				})
+			},
+			
+			getAboutUsData() {
+				const self = this;
+				const postData = {};
+				postData.searchItem = {
+					thirdapp_id: 2
+				};
+				postData.getBefore = {
+					article: {
+						tableName: 'Label',
+						middleKey: 'menu_id',
+						key: 'id',
+						searchItem: {
+							title: ['in', ['关于我们']],
+						},
+						condition: 'in'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.aboutUsData = res.info.data[0];
+					};
+					self.$Utils.finishFunc('getAboutUsData');
+				};
+				self.$apis.articleGet(postData, callback);
 			},
 
 		}

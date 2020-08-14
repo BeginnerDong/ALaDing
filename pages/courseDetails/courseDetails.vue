@@ -16,7 +16,22 @@
 			<view class="py-2 font-26 color6 avoidOverflow2" style="line-height: 1.5;">{{mainData.description?mainData.description:''}}</view>
 			<view class="d-flex a-center pb-3">
 				<view class="price font-34 pr-1">{{mainData.price?mainData.price:''}}</view>
-				<view class="sign">{{mainData.behavior==1?'主播':'导师'}}</view>
+				
+				<view class="sign flex" v-if="mainData.behavior==1">
+					<view>主播</view>
+				</view>
+				<view class="sign flex" v-if="mainData.behavior==2">
+					<view>导师</view>
+				</view>
+				<view class="sign flex" v-if="mainData.behavior==3">
+					<view>导师</view>
+					<image src="../../static/images/start.png" class="wh20"></image>
+				</view>
+				<view class="sign flex" v-if="mainData.behavior==4">
+					<view>导师</view>
+					<image src="../../static/images/start.png" class="wh20"></image>
+					<image src="../../static/images/start.png" class="wh20"></image>
+				</view>
 			</view>
 		</view>
 		<view class="px-3 bg-white mt-2"  :style="isIphoneX?'padding-bottom: 180rpx':''">
@@ -79,4 +94,5 @@ page{background-color: #f5f5f5;}
 .title{margin-top: -40rpx;}
 .imgBox{padding-bottom: 250rpx;}
 .imgBox image{width: 100%;height: 900rpx;}
+.wh20{width: 20rpx;height: 20rpx;margin-left: 5rpx;}
 </style>

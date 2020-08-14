@@ -122,7 +122,7 @@
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			//self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
-			self.$Utils.loadAll(['getMainData', 'getHighUserData', 'getUserData','getDaoshiData','getZhuboData'], self);
+			self.$Utils.loadAll(['getMainData', 'getHighUserData', 'getUserData','getDaoshiData','getZhuboData','getHehuoData','getSHehuoData'], self);
 		},
 
 		onReachBottom() {

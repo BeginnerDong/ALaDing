@@ -6,7 +6,7 @@
 			
 			<view class="pt-2 px-3 position-relative">
 				<view class="d-flex a-center px-3 ss">
-					<image src="../../static/images/the host-icon.png" class="ss-icon mr-2"></image>
+					<image src="../../static/images/the-host-icon.png" class="ss-icon mr-2"></image>
 					<input type="text" value="" placeholder="京东接口暂未支持"/>
 				</view>
 				

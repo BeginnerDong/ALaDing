@@ -3,7 +3,7 @@
 		
 		<view class="px-3 py-2 Mbg">
 			 <view class="bg-white rounded30 flex1 px-3">
-				 <image src="../../static/images/the host-icon.png" class="wh29 p-a mr-2"></image>
+				 <image src="../../static/images/the-host-icon.png" class="wh29 p-a mr-2"></image>
 				 <input type="text" value="" placeholder="搜索" v-model="keywords" @confirm="search"/>
 			 </view>
 		</view>
@@ -23,18 +23,18 @@
 		<view class="font-24 line-h flex2 bB-f5 shadowB z-index10 nav">
 			<view class="flex py-3" @click="Show(1)" :class="navCurr==1&&tj_show?'on':''">
 				<view>擅长类型</view>
-				<image src="../../static/images/the host-icon3.png" class="sj-icon" v-if="navCurr==1&&tj_show"></image>
-				<image src="../../static/images/the host-icon1.png" class="sj-icon" v-else></image>
+				<image src="../../static/images/the-host-icon3.png" class="sj-icon" v-if="navCurr==1&&tj_show"></image>
+				<image src="../../static/images/the-host-icon1.png" class="sj-icon" v-else></image>
 			</view>
 			<view class="flex py-3" @click="Show(2)" :class="navCurr==2&&tj_show?'on':''">
 				<view>粉丝数</view>
-				<image src="../../static/images/the host-icon3.png" class="sj-icon" v-if="navCurr==2&&tj_show"></image>
-				<image src="../../static/images/the host-icon1.png" class="sj-icon" v-else></image>
+				<image src="../../static/images/the-host-icon3.png" class="sj-icon" v-if="navCurr==2&&tj_show"></image>
+				<image src="../../static/images/the-host-icon1.png" class="sj-icon" v-else></image>
 			</view>
 			<view class="flex py-3" @click="Show(3)" :class="navCurr==3&&tj_show?'on':''">
 				<view>客单价</view>
-				<image src="../../static/images/the host-icon3.png" class="sj-icon" v-if="navCurr==3&&tj_show"></image>
-				<image src="../../static/images/the host-icon1.png" class="sj-icon" v-else></image>
+				<image src="../../static/images/the-host-icon3.png" class="sj-icon" v-if="navCurr==3&&tj_show"></image>
+				<image src="../../static/images/the-host-icon1.png" class="sj-icon" v-else></image>
 			</view>
 		</view>
 		
@@ -44,7 +44,7 @@
 				<view class="px-3 bg-white rounded20-B">
 					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in goodAtData" :key="index" @click="goodChoose(index)">
 						<view>{{item}}</view>
-						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="goodIndex==index"></image>
+						<image src="../../static/images/the-host-icon4.png" class="yes-icon" v-show="goodIndex==index"></image>
 					</view>
 				</view>
 			</view>
@@ -53,7 +53,7 @@
 				<view class="px-3 bg-white rounded20-B">
 					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in fans" :key="index" @click="fansChoose(index)">
 						<view>{{item.name}}</view>
-						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="fansIndex==index"></image>
+						<image src="../../static/images/the-host-icon4.png" class="yes-icon" v-show="fansIndex==index"></image>
 					</view>
 				</view>
 			</view>
@@ -62,7 +62,7 @@
 				<view class="px-3 bg-white rounded20-B">
 					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in price" :key="index" @click="priceChoose(index)">
 						<view>{{item.name}}</view>
-						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="priceIndex==index"></image>
+						<image src="../../static/images/the-host-icon4.png" class="yes-icon" v-show="priceIndex==index"></image>
 					</view>
 				</view>
 			</view>
@@ -79,9 +79,9 @@
 					</view>
 					<view>粉丝数量：{{item.fansCount}}万</view>
 					<view>客单价：{{item.orderPrice}}元</view>
-					<view>近3月直播：72场</view>
+					<view>近3月直播：{{item.anchorSession}}场</view>
 				</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon"></image>
 			</view>
 			<view style="width: 100%;text-align: center;margin-top: 50rpx;" v-if="mainData.length==0">暂时没有符合条件的主播~</view>
 		</view>
@@ -302,12 +302,28 @@
 						condition:'in'
 					}
 				};
+				postData.getAfter = {
+					log:{
+						tableName:'Log',
+						middleKey:'user_no',
+						key:'user_no',
+						searchItem:{
+							status:1,
+							user_type:0
+						},
+						condition:'in'
+					}
+				};
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData.push.apply(self.mainData, res.info.data);
 						
 						
 						for (var i = 0; i < self.mainData.length; i++) {
+							self.mainData[i].anchorSession = 0;
+							for (var j = 0; j < self.mainData[i].log.length; j++) {
+								self.mainData[i].anchorSession += parseInt(self.mainData[i].log[j].anchorSession)
+							};
 							self.mainData[i].anchorPlant = self.mainData[i].anchorPlant.split(',')
 						}
 					};

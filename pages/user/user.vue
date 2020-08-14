@@ -333,7 +333,7 @@
 	page {
 		background-color: #F5F5F5;
 	}
-
+	.wh22{width: 22rpx!important;height: 22rpx!important;}
 	.head {
 		background-color: #FF7B8E;
 		padding-bottom: 100rpx;

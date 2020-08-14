@@ -8,8 +8,19 @@
 					<view class="py-3 font-30 color2">{{item.title}}</view>
 					<view class="d-flex a-center pb-3">
 						<view class="price font-34 pr-1">{{item.price}}</view>
-						<view class="sign flex">
-							<view>{{item.behavior==1?'主播':'导师'}}</view>
+						<view class="sign flex" v-if="item.behavior==1">
+							<view>主播</view>
+						</view>
+						<view class="sign flex" v-if="item.behavior==2">
+							<view>导师</view>
+						</view>
+						<view class="sign flex" v-if="item.behavior==3">
+							<view>导师</view>
+							<image src="../../static/images/start.png" class="wh20"></image>
+						</view>
+						<view class="sign flex" v-if="item.behavior==4">
+							<view>导师</view>
+							<image src="../../static/images/start.png" class="wh20"></image>
 							<image src="../../static/images/start.png" class="wh20"></image>
 						</view>
 					</view>

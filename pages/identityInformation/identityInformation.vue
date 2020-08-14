@@ -4,7 +4,7 @@
 			<view class="color6 flex-1">头像</view>
 			<image :src="submitData.mainImg.length>0?submitData.mainImg[0].url:'../../static/images/the login-icon.png'"
 			 @click="upLoadImg('mainImg')" class="wh80"></image>
-			<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+			<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">直播名称</view>
@@ -14,14 +14,14 @@
 			<view class="color6">擅长品类</view>
 			<view class="flex" @click="isShow('good')">
 				<view class="font-24" :style="submitData.goodAt!=''?'color:#222':'color:#888'">{{submitData.goodAt!=''?submitData.goodAt:'请选择(可多选)'}}</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">直播平台</view>
 			<view class="flex" @click="isShow('plant')">
 				<view class="font-24" :style="submitData.anchorPlant!=''?'color:#222':'color:#888'">{{submitData.anchorPlant!=''?submitData.anchorPlant:'请选择(可多选)'}}</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
@@ -37,21 +37,21 @@
 			<view class="color6">男性粉丝占比</view>
 			<view class="flex" @click="isShow('male')">
 				<view class="font-24" :style="submitData.manFansPercent!=''?'color:#222':'color:#888'">{{submitData.manFansPercent!=''?submitData.manFansPercent:'请选择'}}</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">女性粉丝占比</view>
 			<view class="flex" @click="isShow('famale')">
 				<view class="font-24"  :style="submitData.womenFansPercent!=''?'color:#222':'color:#888'">{{submitData.womenFansPercent!=''?submitData.womenFansPercent:'请选择'}}</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">所属机构</view>
 			<view class="flex" @click="isShow('institute')">
 				<view class="font-24"   :style="submitData.institute!=''?'color:#222':'color:#888'">{{submitData.institute!=''?submitData.institute:'请选择(可多选)'}}</view>
-				<image src="../../static/images/the host-icon2.png" class="R-icon ml-1"></image>
+				<image src="../../static/images/the-host-icon2.png" class="R-icon ml-1"></image>
 			</view>
 		</view>
 		
@@ -66,7 +66,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in goodAtData" :key="index" @click="choose(item,'chooseGoodArray')">
 						<view>{{item}}{{Utils.inArray(item,chooseGoodArray)}}</view>
-						<image :src="Utils.inArray(item,chooseGoodArray)>-1?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="Utils.inArray(item,chooseGoodArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
@@ -79,7 +79,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in plantData" :key="index" @click="choose(item,'choosePlantArray')">
 						<view>{{item}}{{Utils.inArray(item,choosePlantArray)}}</view>
-						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
@@ -92,7 +92,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in plantData" :key="index" @click="choose(item,'choosePlantArray')">
 						<view>{{item}}{{Utils.inArray(item,choosePlantArray)}}</view>
-						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
@@ -105,7 +105,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in rateData" :key="index" @click="sigleChoose(index,'maleRate')">
 						<view>{{item}}</view>
-						<image :src="maleRate==item?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="maleRate==item?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
@@ -118,7 +118,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in rateData" :key="index" @click="sigleChoose(index,'famaleRate')">
 						<view>{{item}}</view>
-						<image :src="famaleRate==item?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="famaleRate==item?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
@@ -131,7 +131,7 @@
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in instituteData" :key="index" @click="choose(item,'chooseInstituteArray')">
 						<view>{{item}}{{Utils.inArray(item,chooseInstituteArray)}}</view>
-						<image :src="Utils.inArray(item,chooseInstituteArray)>-1?'../../static/images/the host-icon4.png':''" class="yes-icon"></image>
+						<image :src="Utils.inArray(item,chooseInstituteArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
 				
