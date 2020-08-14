@@ -103,7 +103,7 @@
 					console.log('self.mainData', self.mainData)
 					self.$Utils.finishFunc('getMainData');
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 
 			getLogData() {

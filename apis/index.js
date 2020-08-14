@@ -240,6 +240,18 @@ export default {
 		http.HTTP(allParams);
 	},
 	
+	userCommonGet(param, callback) {
+		var allParams = {
+			url: 'Common/User/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 	commonUserGet(param, callback) {
 		var allParams = {
 			url: 'Common/User/get',
