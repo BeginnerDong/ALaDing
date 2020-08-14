@@ -302,5 +302,5 @@ input{font-size: 24rpx;height: 60rpx;flex: 1;}
 .anchor:nth-child(1){border: none!important;}
 
 .nav .on{color: #FF7B8E;}
-.anchor-mask{height: 100%;position: absolute;top: 0;left: 0;bottom: 0;right: 0;background-color: rgba(0,0,0,0.4);z-index: 2;}
+.anchor-mask{position: absolute;left: 0;right: 0;background-color: rgba(0,0,0,0.4);z-index: 22222;padding-bottom: 300rpx;}
 </style>
