@@ -140,6 +140,8 @@
 				,{name:'40-60元',type:'between',value:[40,60]},{name:'60-100元',type:'between',value:[60,100]},
 				{name:'100-1000元',type:'between',value:[100,1000]},{name:'1000元以上',type:'higher',value:1000}],
 				goodIndex:-1,
+				fansIndex:-1,
+				priceIndex:-1,
 				keywords:''
 			}
 		},
@@ -174,6 +176,7 @@
 			fansChoose(index){
 				const self = this;
 				if(self.fansIndex!=index){
+					self.fansIndex = index;
 					if(self.fans[index].type=='delete'&&self.searchItem.fansCount){
 						delete self.searchItem.fansCount
 					}else if(self.fans[index].type=='higher'){
@@ -190,6 +193,7 @@
 			priceChoose(index){
 				const self = this;
 				if(self.priceIndex!=index){
+					self.priceIndex = index;
 					if(self.price[index].type=='delete'&&self.searchItem.orderPrice){
 						delete self.searchItem.orderPrice
 					}else if(self.price[index].type=='higher'){

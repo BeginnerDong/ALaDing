@@ -36,9 +36,9 @@
 		
 		
 		<view class="d-flex a-center j-sb px-3 bg-white shadowM bot">
-			<view class="d-flex a-center">
+			<view class="d-flex a-center"  @click="chooseAll">
 				<image :src="isChooseAll?'../../static/images/car-icon1.png':'../../static/images/car-icon2.png'" class="wh36 mr-2"></image>
-				<view @click="chooseAll">全选</view>
+				<view>全选</view>
 			</view>
 			<view class="btn"  @click="pay" v-if="!is_allDelt">提交</view>
 			<view class="btn delbtn" @click="deleteAll" v-if="is_allDelt">删除</view>
