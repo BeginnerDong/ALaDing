@@ -34,12 +34,7 @@
 				<view class="font-32 font-w">PV</view>
 			</view>
 			<view class="qiun-charts">
-				<!--#ifdef MP-ALIPAY -->
-				<canvas canvas-id="canvasColumn" id="canvasColumn"></canvas>
-				<!--#endif-->
-				<!--#ifndef MP-ALIPAY -->
-				<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts"></canvas>
-				<!--#endif-->
+				<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" disable-scroll=true @touchstart="touchLineA($event,'canvasColumn')" @touchmove="moveLineA($event,'canvasColumn')" @touchend="touchEndLineA($event,'canvasColumn')"></canvas>
 			</view>
 			<view class="f5Bj-H20"></view>
 		</view>
@@ -50,13 +45,46 @@
 				<view class="font-32 font-w">UV</view>
 			</view>
 			<view class="qiun-charts">
-				<!--#ifdef MP-ALIPAY -->
-				<canvas canvas-id="canvasColumn1" id="canvasColumn1"></canvas>
-				<!--#endif-->
-				<!--#ifndef MP-ALIPAY -->
-				<canvas canvas-id="canvasColumn1" id="canvasColumn1" class="charts"></canvas>
-				<!--#endif-->
+				<canvas canvas-id="canvasColumn1" id="canvasColumn1" class="charts" disable-scroll=true @touchstart="touchLineA($event,'canvasColumn1')" @touchmove="moveLineA($event,'canvasColumn1')" @touchend="touchEndLineA($event,'canvasColumn1')"></canvas>	
 			</view>
+			
+			<view class="f5Bj-H20"></view>
+		</view>
+		
+		<view>
+			<view class="flex0 py-3">
+				<image src="../../static/images/the-host-icon6.png" class="anchorIcon"></image>
+				<view class="font-32 font-w">当日浏览量当日成交有效子单量</view>
+			</view>
+			<view class="qiun-charts">
+				<canvas canvas-id="canvasColumn2" id="canvasColumn2" class="charts" disable-scroll=true @touchstart="touchLineA($event,'canvasColumn2')" @touchmove="moveLineA($event,'canvasColumn2')" @touchend="touchEndLineA($event,'canvasColumn2')"></canvas>
+			</view>
+			
+			<view class="f5Bj-H20"></view>
+		</view>
+		
+		
+		<view>
+			<view class="flex0 py-3">
+				<image src="../../static/images/the-host-icon6.png" class="anchorIcon"></image>
+				<view class="font-32 font-w">当日浏览量当日成交有效优惠后金额</view>
+			</view>
+			<view class="qiun-charts">
+				<canvas canvas-id="canvasColumn3" id="canvasColumn3" class="charts" disable-scroll=true @touchstart="touchLineA($event,'canvasColumn3')" @touchmove="moveLineA($event,'canvasColumn3')" @touchend="touchEndLineA($event,'canvasColumn3')"></canvas>
+			</view>
+			
+			<view class="f5Bj-H20"></view>
+		</view>
+		
+		<view>
+			<view class="flex0 py-3">
+				<image src="../../static/images/the-host-icon6.png" class="anchorIcon"></image>
+				<view class="font-32 font-w">有效订单转换率</view>
+			</view>
+			<view class="qiun-charts">
+				<canvas canvas-id="canvasColumn4" id="canvasColumn4" class="charts" disable-scroll=true @touchstart="touchLineA($event,'canvasColumn4')" @touchmove="moveLineA($event,'canvasColumn4')" @touchend="touchEndLineA($event,'canvasColumn4')"></canvas>
+			</view>
+			
 			<view class="f5Bj-H20"></view>
 		</view>
 
@@ -85,7 +113,22 @@
 		},
 		methods: {
 			
-			
+			touchLineA(e,key){
+				console.log('touchLineA',e)
+				this[key].scrollStart(e);
+			},
+			moveLineA(e,key) {
+				this[key].scroll(e);
+			},
+			touchEndLineA(e,key) {
+				this[key].scrollEnd(e);
+				//下面是toolTip事件，如果滚动后不需要显示，可不填写
+				this[key].showToolTip(e, {
+					format: function (item, category) {
+						return category + ' ' + item.name + ':' + item.data 
+					}
+				});
+			},
 
 			getMainData() {
 				const self = this;
@@ -124,15 +167,21 @@
 						var date = [];
 						var pv = [];
 						var uv = [];
+						var visitOrders = [];
+						var visitAmounts = [];
+						var transfer = [];
 						for (var i = 0; i < res.info.data.length; i++) {
 							date.push(res.info.data[i].result.substr(5, 10));
-							pv.push(res.info.data[i].pv)
-							uv.push(res.info.data[i].uv)
+							pv.push(res.info.data[i].pv);
+							uv.push(res.info.data[i].uv);
+							visitOrders.push(res.info.data[i].visitOrders);
+							visitAmounts.push(res.info.data[i].visitAmounts);
+							transfer.push(res.info.data[i].transfer);
 							self.anchorSession += parseInt( res.info.data[i].anchorSession);
 							console.log('pv',pv);
 							console.log('uv',uv);
 						};
-						canvaColumn = new uCharts({
+						self.canvaColumn = new uCharts({
 							$this: _self,
 							canvasId: 'canvasColumn',
 							type: 'line',
@@ -149,12 +198,13 @@
 							categories: date,
 							series: [{
 								data: pv,
+								name:'pv'
 							}],
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								//scrollShow:true,//新增是否显示滚动条，默认false
-								//scrollAlign:'left',//滚动条初始位置
+								scrollShow:true,//新增是否显示滚动条，默认false
+								scrollAlign:'left',//滚动条初始位置
 								itemCount: 6
 							},
 							yAxis: {
@@ -170,8 +220,8 @@
 							legend: {
 								show: false
 							},
-							width: 400,
-							height: 200,
+							width: 300,
+							height: 150,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -180,7 +230,7 @@
 						});
 						
 						
-						var test = new uCharts({
+						self.canvasColumn1 = new uCharts({
 							$this: _self,
 							canvasId: 'canvasColumn1',
 							type: 'line',
@@ -196,6 +246,7 @@
 							pixelRatio: 1,
 							categories: date,
 							series: [{
+								name: 'uv',
 								data: uv,
 							}],
 							animation: true,
@@ -203,6 +254,58 @@
 								disableGrid: true,
 								//scrollShow:true,//新增是否显示滚动条，默认false
 								//scrollAlign:'left',//滚动条初始位置
+								itemCount: 6,
+								scrollShow:true,
+								scrollAlign:'left',
+							},
+							yAxis: {
+								gridType: 'solid',
+								gridColor: '#f5f5f5',
+								splitNumber: 5,
+								min: 0,
+								max: 500,
+								format: (val) => {
+									return val.toFixed(0)
+								},
+								scrollShow:true,
+								scrollAlign:'left',
+							},
+							
+							width: 300,
+							height: 150,
+							extra: {
+								line: {
+									type: 'canvas'
+								}
+							},
+							
+						});
+
+
+						self.canvasColumn2 = new uCharts({
+							$this: _self,
+							canvasId: 'canvasColumn2',
+							type: 'line',
+							enableScroll: true, //开启图表拖拽功能
+							fontSize: 11,
+							colors: ['#FF7B8E', '#ba99ff'],
+							legend: {
+								show: true
+							},
+							dataLabel: true,
+							dataPointShape: true,
+							background: '#f5f5f5',
+							pixelRatio: 1,
+							categories: date,
+							series: [{
+								data: visitOrders,
+								name:''
+							}],
+							animation: true,
+							xAxis: {
+								disableGrid: true,
+								scrollShow:true,//新增是否显示滚动条，默认false
+								scrollAlign:'left',//滚动条初始位置
 								itemCount: 6
 							},
 							yAxis: {
@@ -218,8 +321,104 @@
 							legend: {
 								show: false
 							},
-							width: 400,
-							height: 200,
+							width: 300,
+							height: 150,
+							extra: {
+								line: {
+									type: 'canvas'
+								}
+							}
+						});
+						
+						self.canvasColumn3 = new uCharts({
+							$this: _self,
+							canvasId: 'canvasColumn3',
+							type: 'line',
+							enableScroll: true, //开启图表拖拽功能
+							fontSize: 11,
+							colors: ['#FF7B8E', '#ba99ff'],
+							legend: {
+								show: true
+							},
+							dataLabel: true,
+							dataPointShape: true,
+							background: '#f5f5f5',
+							pixelRatio: 1,
+							categories: date,
+							series: [{
+								data: visitAmounts,
+								name:''
+							}],
+							animation: true,
+							xAxis: {
+								disableGrid: true,
+								scrollShow:true,//新增是否显示滚动条，默认false
+								scrollAlign:'left',//滚动条初始位置
+								itemCount: 6
+							},
+							yAxis: {
+								gridType: 'solid',
+								gridColor: '#f5f5f5',
+								splitNumber: 5,
+								min: 0,
+								max: 500,
+								format: (val) => {
+									return val.toFixed(0)
+								}
+							},
+							legend: {
+								show: false
+							},
+							width: 300,
+							height: 150,
+							extra: {
+								line: {
+									type: 'canvas'
+								}
+							}
+						});
+						
+						self.canvasColumn4 = new uCharts({
+							$this: _self,
+							canvasId: 'canvasColumn4',
+							type: 'line',
+							enableScroll: true, //开启图表拖拽功能
+							fontSize: 11,
+							colors: ['#FF7B8E', '#ba99ff'],
+							legend: {
+								show: true
+							},
+							dataLabel: true,
+							dataPointShape: true,
+							background: '#f5f5f5',
+							pixelRatio: 1,
+							categories: date,
+							series: [{
+								data: transfer,
+								name:''
+							}],
+							animation: true,
+							xAxis: {
+								disableGrid: true,
+								scrollShow:true,//新增是否显示滚动条，默认false
+								scrollAlign:'left',//滚动条初始位置
+								itemCount: 6
+							},
+							yAxis: {
+								gridType: 'solid',
+								gridColor: '#f5f5f5',
+								splitNumber: 5,
+								min: 0,
+								max: 500,
+								format: (val) => {
+									return val.toFixed(0)
+								}
+							},
+							legend: {
+								show: false
+							},
+							width: 300,
+							height: 150,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -313,13 +512,14 @@
 	}
 
 	.qiun-charts {
-		width: 750rpx;
-		height: 380rpx;
-		padding: 0 15rpx;
+		width: 300px;
+		height: 150px;
+		
+		overflow: scroll;
 	}
 
 	.charts {
-		width: 750rpx;
-		height: 380rpx;
+		width: 300px;
+		height: 150px;
 	}
 </style>
