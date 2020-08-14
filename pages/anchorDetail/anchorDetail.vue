@@ -181,7 +181,7 @@
 							console.log('pv',pv);
 							console.log('uv',uv);
 						};
-						self.canvaColumn = new uCharts({
+						self.canvasColumn = new uCharts({
 							$this: _self,
 							canvasId: 'canvasColumn',
 							type: 'line',
