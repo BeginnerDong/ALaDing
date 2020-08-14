@@ -80,7 +80,7 @@
 		onLoad(options) {
 			const self = this;
 			self.user_no = options.user_no;
-			self.$Utils.loadAll(['getMainData','getAboutUsData'], self);
+			self.$Utils.loadAll(['getMainData','getAboutUsData','getLogData'], self);
 
 		},
 		methods: {
@@ -127,8 +127,10 @@
 						for (var i = 0; i < res.info.data.length; i++) {
 							date.push(res.info.data[i].result.substr(5, 10));
 							pv.push(res.info.data[i].pv)
-							uv.push(res.info.data[i].pv)
-							self.anchorSession += parseInt( res.info.data[i].anchorSession)
+							uv.push(res.info.data[i].uv)
+							self.anchorSession += parseInt( res.info.data[i].anchorSession);
+							console.log('pv',pv);
+							console.log('uv',uv);
 						};
 						canvaColumn = new uCharts({
 							$this: _self,
@@ -147,6 +149,54 @@
 							categories: date,
 							series: [{
 								data: pv,
+							}],
+							animation: true,
+							xAxis: {
+								disableGrid: true,
+								//scrollShow:true,//新增是否显示滚动条，默认false
+								//scrollAlign:'left',//滚动条初始位置
+								itemCount: 6
+							},
+							yAxis: {
+								gridType: 'solid',
+								gridColor: '#f5f5f5',
+								splitNumber: 5,
+								min: 0,
+								max: 500,
+								format: (val) => {
+									return val.toFixed(0)
+								}
+							},
+							legend: {
+								show: false
+							},
+							width: 400,
+							height: 200,
+							extra: {
+								line: {
+									type: 'canvas'
+								}
+							}
+						});
+						
+						
+						var test = new uCharts({
+							$this: _self,
+							canvasId: 'canvasColumn1',
+							type: 'line',
+							enableScroll: true, //开启图表拖拽功能
+							fontSize: 11,
+							colors: ['#FF7B8E', '#ba99ff'],
+							legend: {
+								show: true
+							},
+							dataLabel: true,
+							dataPointShape: true,
+							background: '#f5f5f5',
+							pixelRatio: 1,
+							categories: date,
+							series: [{
+								data: uv,
 							}],
 							animation: true,
 							xAxis: {
