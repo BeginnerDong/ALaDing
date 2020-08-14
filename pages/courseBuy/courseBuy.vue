@@ -153,7 +153,7 @@
 									type: 2,
 									account: 1,
 									user_no: self.distriData[i].parent_no,
-									relation_user: uni.getStorageSync('user_info').user_no
+									relation_user: uni.getStorageSync('user_info').user_no,
 								},
 							}, )
 						} else if (self.distriData[i].level == 2) {
