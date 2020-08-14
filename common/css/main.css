@@ -110,14 +110,14 @@ uni-button:after{border: 0;}
 
 /* 标签 */
 /* 课程标签 */
-.sign{border: 1px solid #fed51b;border-radius: 14rpx;width: 60rpx;height: 28rpx;color: #FED51B;font-size: 20rpx;text-align: center;line-height: 24.5rpx;}
+.sign{border: 1px solid #fed51b;border-radius: 14rpx;padding: 0 10rpx;height: 28rpx;color: #FED51B;font-size: 20rpx;text-align: center;line-height: 24.5rpx;}
 /* 复制标签 */
-.sign1{width: 60rpx;height: 30rpx;text-align: center;background-color: #ffa6b4;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
-.sign4{width: 60rpx;height: 30rpx;text-align: center;background-color: #a6a6a6;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
+.sign1{padding: 0 10rpx;height: 30rpx;text-align: center;background-color: #ffa6b4;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
+.sign4{padding: 0 10rpx;height: 30rpx;text-align: center;background-color: #a6a6a6;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
 /* 导师标签 */
-.sign2{width: 60rpx;height: 30rpx;text-align: center;background-color: #FED513;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
+.sign2{height: 30rpx;text-align: center;background-color: #FED513;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;padding: 0 10rpx;}
 /* 主播标签 */
-.sign3{width: 60rpx;height: 30rpx;text-align: center;background-color: #ffa6b3;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
+.sign3{padding: 0 10rpx;height: 30rpx;text-align: center;background-color: #ffa6b3;font-size: 20rpx;line-height: 30rpx;border-radius: 15rpx;color:#fff;}
 
 .tag{font-size: 24rpx;border-radius: 5rpx;line-height: 30rpx;color: #fff;padding: 0 5rpx;display: inline-block;margin-left: 10rpx;}
 .tag:nth-child(3n+1){background-color: #FF7B8E;}

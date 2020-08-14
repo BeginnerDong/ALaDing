@@ -1,8 +1,17 @@
 <template>
 	<view>
 		<view class="color2 font-30 d-flex a-center text-center head shadow z-index10">
-			<view class="w-50 title position-relative" :class="titCurrent==1?'on':''" @click="changeTit(1)">主播</view>
-			<view class="w-50 title position-relative" :class="titCurrent==2?'on':''" @click="changeTit(2)">导师</view>
+			<view class="w-25 title position-relative" :class="titCurrent==1?'on':''" @click="changeTit(1)">主播</view>
+			<view class="w-25 title position-relative" :class="titCurrent==2?'on':''" @click="changeTit(2)">导师</view>
+			<view class="w-25 title position-relative flex0" :class="titCurrent==3?'on':''" @click="changeTit(3)">
+				导师
+				<image :src="titCurrent==3?start[1]:start[0]" class="wh26"></image>
+			</view>
+			<view class="w-25 title position-relative flex0" :class="titCurrent==4?'on':''" @click="changeTit(4)">
+				导师
+				<image :src="titCurrent==4?start[1]:start[0]" class="wh26"></image>
+				<image :src="titCurrent==4?start[1]:start[0]" class="wh26"></image>
+			</view>
 		</view>
 		<!-- 主播列表 -->
 		<view class="teamListBox px-3 bg-white mt-3">
@@ -31,6 +40,7 @@
 	export default {
 		data() {
 			return {
+				start:['../../static/images/start2.png','../../static/images/start1.png'],
 				searchItem:{
 					thirdapp_id:2,
 					//level:1
@@ -141,6 +151,7 @@
 .head .on{color: #FF7B8E;font-weight: 700;}
 .head .on::before{content:'';width: 30rpx;height: 4rpx;background-color: #FF7B8E;position: absolute;bottom: 0;left: 50%;margin-left: -15rpx;}
 
+.w-25{width: 25%;}
 .teamListBox .item image{width: 100rpx;height: 100rpx;}
 .qj{color: #D5D5D5;width: 100rpx;text-align: right;height: 100rpx;line-height: 100rpx;}
 </style>
