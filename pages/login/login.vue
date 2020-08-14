@@ -32,6 +32,10 @@
 			
 			userInfoUpdate(){
 				const self = this;
+				if(self.phone==''){
+					self.$Utils.showToast('请输入手机号','none');
+					return
+				};
 				const postData = {};
 				postData.tokenFuncName = 'getProjectToken';
 				postData.data = {

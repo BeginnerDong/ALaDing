@@ -151,7 +151,7 @@
 				var rankArray = ['anchor','tutor','partner','spartner'];
 				if(self.shareUser.behavior>0){
 					postData.data[rankArray[self.shareUser.behavior-1]] = self.shareUser.user_no;
-					if(empty(self.shareUser[rankArray[self.shareUser.behavior-1]])){
+					if(!self.shareUser[rankArray[self.shareUser.behavior-1]]){
 						for(var i=self.shareUser.behavior;i<rankArray.length;i++){
 							if(self.shareUser[rankArray[i]]){
 								postData.data[rankArray[i]] = self.shareUser[rankArray[i]];

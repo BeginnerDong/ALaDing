@@ -12,14 +12,14 @@
 				<view class="font-24 color2">导师 ></view>
 			</view>
 			<view class="text-center w-25 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=3'}})">
-				<view class="font-40 color2 pb-3 font-w">{{daoshiNum}}</view>
+				<view class="font-40 color2 pb-3 font-w">{{hehuoNum}}</view>
 				<view class="font-24 color2 flex0">导师
 					<image src="../../static/images/start2.png" class="wh26 mx-1"></image>
 					>
 				 </view>
 			</view>
 			<view class="text-center w-25 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=4'}})">
-				<view class="font-40 color2 pb-3 font-w">{{daoshiNum}}</view>
+				<view class="font-40 color2 pb-3 font-w">{{sHehuoNum}}</view>
 				<view class="font-24 color2 flex0">导师
 					<image src="../../static/images/start2.png" class="wh26 ml-1"></image>
 					<image src="../../static/images/start2.png" class="wh26 mr-1"></image>
@@ -37,12 +37,12 @@
 					<view class="d-flex a-center pb-3">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
 						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==2">导师</view>
-						<view class="sign2 flex0">
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==3">
 							导师
 							<image src="../../static/images/start3.png" class="wh22"></image>
 						</view>
 						
-						<view class="sign2 flex0">
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==4">
 							导师
 							<image src="../../static/images/start3.png" class="wh22"></image>
 							<image src="../../static/images/start3.png" class="wh22"></image>
@@ -71,11 +71,11 @@
 					<view class="d-flex a-center">
 						<view class="color2 pr-2">{{item.headImgUrl?item.nickname:''}}</view>
 						<view class="sign2 flex0" v-if="item.behavior==2">导师</view>
-						<view class="sign2 flex0">
+						<view class="sign2 flex0"  v-if="item.behavior==3">
 							导师
 							<image src="../../static/images/start3.png" class="wh22"></image>
 						</view>
-						<view class="sign2 flex0">
+						<view class="sign2 flex0" v-if="item.behavior==4">
 							导师
 							<image src="../../static/images/start3.png" class="wh22"></image>
 							<image src="../../static/images/start3.png" class="wh22"></image>
@@ -83,7 +83,7 @@
 						<view class="sign3" v-if="item.behavior==1">主播</view>
 					</view>
 					<view class="color6 d-flex a-center">
-						<view v-if="userData.behavior==2">微信号：{{item.info
+						<view v-if="userData.behavior==2||item.behavior==3||item.behavior==4">微信号：{{item.info
 						&&item.info.wechat!=''?item.info.wechat:'暂未填写'}}</view>
 						<view class="sign4 ml-2" @click="getClipboardData1(index)">复制</view>
 					</view>
@@ -112,7 +112,9 @@
 				highUserData: [],
 				daoshiNum: 0,
 				zhuboNum: 0,
-				userData: {}
+				userData: {},
+				hehuoNum:0,
+				sHehuoNum:0
 			}
 		},
 
@@ -120,7 +122,7 @@
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			//self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
-			self.$Utils.loadAll(['getMainData', 'getHighUserData', 'getUserData','getDaoshiData'], self);
+			self.$Utils.loadAll(['getMainData', 'getHighUserData', 'getUserData','getDaoshiData','getZhuboData'], self);
 		},
 
 		onReachBottom() {
@@ -219,51 +221,14 @@
 						middleKey: 'user_no',
 						key: 'child_no',
 						searchItem: {
-							//behavior:['in',[1]]
-							//level: ['in', [1]],
 							parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 						},
 						condition: 'in',
 					}
 				};
-				/* postData.getAfter = {
-					relationUser: {
-						tableName: 'User',
-						middleKey: 'child_no',
-						key: 'user_no',
-						searchItem: {
-							status: 1
-						},
-						condition: '=',
-						compute: {
-							zhubo: [
-								'count',
-								'count',
-								{
-									behavior: 1
-								}
-							],
-							daoshi: [
-								'count',
-								'count',
-								{
-									behavior: 2
-								}
-							],
-						},
-					}
-				}; */
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData.push.apply(self.mainData, res.info.data);
-						/* for (var i = 0; i < self.mainData.length; i++) {
-							if (self.mainData[i].relationUser[0].behavior == 1) {
-								self.zhuboNum++
-							} else if (self.mainData[i].relationUser[0].behavior == 2) {
-								self.daoshiNum++
-							}
-						} */
-					
 					};
 					self.$Utils.finishFunc('getMainData');
 
@@ -318,8 +283,6 @@
 						middleKey: 'user_no',
 						key: 'child_no',
 						searchItem: {
-							//behavior:['in',[2]]
-							//level: ['in', [1]],
 							parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 						},
 						condition: 'in',
@@ -329,7 +292,65 @@
 					if (res.info) {
 						self.zhuboNum  =  res.info.total
 					};
-					self.$Utils.finishFunc('getDaoshiData');
+					self.$Utils.finishFunc('getZhuboData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
+			
+			getHehuoData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = {
+					thirdapp_id:2,
+					behavior:3
+				};
+				postData.getBefore = {
+					relationUser: {
+						tableName: 'Distribution',
+						middleKey: 'user_no',
+						key: 'child_no',
+						searchItem: {
+							parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
+						},
+						condition: 'in',
+					}
+				};
+				const callback = (res) => {
+					if (res.info) {
+						self.hehuoNum  =  res.info.total
+					};
+					self.$Utils.finishFunc('getHehuoData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
+			
+			getSHehuoData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = {
+					thirdapp_id:2,
+					behavior:4
+				};
+				postData.getBefore = {
+					relationUser: {
+						tableName: 'Distribution',
+						middleKey: 'user_no',
+						key: 'child_no',
+						searchItem: {
+							parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
+						},
+						condition: 'in',
+					}
+				};
+				const callback = (res) => {
+					if (res.info) {
+						self.sHehuoNum  =  res.info.total
+					};
+					self.$Utils.finishFunc('getSHehuoData');
 				};
 				self.$apis.userGet(postData, callback);
 			},

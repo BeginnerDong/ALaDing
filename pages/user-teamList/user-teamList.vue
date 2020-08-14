@@ -22,6 +22,16 @@
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
 						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==3">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
+						
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==4">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
 					</view>
 					<view class="color6">注册时间：{{item.create_time}}</view>
 				</view>

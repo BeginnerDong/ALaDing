@@ -58,6 +58,15 @@
 				</view>
 			</view>
 			
+			<view class="anchor-mask" v-show="tj_show&&navCurr==3">
+				<view class="px-3 bg-white rounded20-B">
+					<view class="flex1 font-26 py-4 bB-e1" v-for="(item,index) in price" :key="index" @click="priceChoose(index)">
+						<view>{{item.name}}</view>
+						<image src="../../static/images/the host-icon4.png" class="yes-icon" v-show="priceIndex==index"></image>
+					</view>
+				</view>
+			</view>
+			
 			<!-- 主播列表 -->
 			<view class="flex1 py-3 bB-e1 anchor" v-for="(item,index) in mainData" v-if="mainData.length>0" :data-user_no="item.user_no"
 			@click="Router.navigateTo({route:{path:'/pages/anchorDetail/anchorDetail?user_no='+$event.currentTarget.dataset.user_no}})" :key="index">
@@ -127,6 +136,9 @@
 				fans:[{name:'不限',type:'delete',value:[]},{name:'100-1000',type:'between',value:[100,1000]}
 				,{name:'1000-5000',type:'between',value:[1000,5000]},{name:'5000-1万',type:'between',value:[5000,10000]},
 				{name:'1万-10万',type:'between',value:[10000,100000]},{name:'10万以上',type:'higher',value:100000}],
+				price:[{name:'不限',type:'delete',value:[]},{name:'10-40元',type:'between',value:[10,40]}
+				,{name:'40-60元',type:'between',value:[40,60]},{name:'60-100元',type:'between',value:[60,100]},
+				{name:'100-1000元',type:'between',value:[100,1000]},{name:'1000元以上',type:'higher',value:1000}],
 				goodIndex:-1,
 				keywords:''
 			}
@@ -141,7 +153,7 @@
 		onReachBottom() {
 			console.log('onReachBottom')
 			const self = this;
-			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')&&self.navCurr==0) {
 				self.paginate.currentPage++;
 				self.getMainData()
 			};
@@ -168,6 +180,22 @@
 						self.searchItem.fansCount = ['>',self.fans[index].value]
 					}else if(self.fans[index].type=='between'){
 						self.searchItem.fansCount = ['between',self.fans[index].value]
+					};
+					self.tj_show = false;
+					self.navCurr = 0;
+					self.getMainData(true)
+				}
+			},
+			
+			priceChoose(index){
+				const self = this;
+				if(self.priceIndex!=index){
+					if(self.price[index].type=='delete'&&self.searchItem.orderPrice){
+						delete self.searchItem.orderPrice
+					}else if(self.price[index].type=='higher'){
+						self.searchItem.orderPrice = ['>',self.price[index].value]
+					}else if(self.price[index].type=='between'){
+						self.searchItem.orderPrice = ['between',self.price[index].value]
 					};
 					self.tj_show = false;
 					self.navCurr = 0;

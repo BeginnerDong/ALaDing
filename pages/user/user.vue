@@ -6,7 +6,19 @@
 				<view class="colorf ml-2 flex-1">
 					<view class="d-flex a-center pb-3">
 						<view class="pr-1 font-30">{{userData.nickname?userData.nickname:''}}</view>
-						<view class="sign1">{{userData.behavior==0?'游客':(userData.behavior==1?'主播':'导师')}}</view>
+						<view class="sign1" v-if="userData.behavior==0">游客</view>
+						<view class="sign2 flex0" v-if="userData.behavior==2">导师</view>
+						<view class="sign2 flex0" v-if="userData.behavior==3">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
+						
+						<view class="sign2 flex0" v-if="userData.behavior==4">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
+						<view class="sign3" v-if="userData.behavior==1">主播</view>
 					</view>
 					<view class="d-flex a-center" v-if="userData.behavior>0">
 						<view class="pr-1 font-26">邀请码：{{userData.user_no?userData.user_no:''}}</view>
@@ -15,30 +27,30 @@
 				</view>
 				<image src="../../static/images/user-icon.png" style="width: 42rpx;height: 39rpx;" @click="Router.navigateTo({route:{path:'/pages/user-Information/user-Information'}})"></image>
 			</view>
-			<view class="font-50 colorf font-w text-center pt-3 pb-2">{{userData.info?userData.info.balance:''}}</view>
+			<view class="font-50 colorf font-w text-center pt-3 pb-2">{{canWithdraw?canWithdraw:"0.00"}}</view>
 			<view class="font-22 text-center colorf pb-3">可提现金额(￥)</view>
 			<view class="d-flex j-center pb-4">
 				<view class="btn1" @click="Router.navigateTo({route:{path:'/pages/user-Withdrawal/user-Withdrawal'}})">申请提现</view>
 				<view class="btn1" @click="Router.navigateTo({route:{path:'/pages/user-WithdrawalRecord/user-WithdrawalRecord'}})">提现记录</view>
 			</view>
 		</view>
-		
+
 		<view class="userBox1 line-h text-center bg-white rounded10 d-flex mx-3">
 			<view class="px-3 d-flex flex-column a-center j-center userBox1L">
 				<view class="font-22 color2" style="padding-bottom: 25rpx;">本月平台奖励</view>
-				<view class="font-30 color2">{{userData.FlowLog.count?userData.FlowLog.count:0}}</view>
+				<view class="font-30 color2">{{userData.tg.count?userData.tg.count:'0.00'}}</view>
 			</view>
 			<view class="flex-1">
 				<view class="font-24 color2 py-3">推广佣金</view>
 				<view class="d-flex">
 					<view class="item">
 						<view class="font-22 color9">本月预估结算金额</view>
-						<view class="font-30 color2 py-2">暂无数据</view>
-						<view class="font-22 color2 pb-3">已结算账单金额</view>
+						<view class="font-30 color2 py-2">{{userData.lastMonthDh.count?userData.lastMonthDh.count:'0.00'}}</view>
+						<view class="font-22 color2 pb-3 djs">{{isJs?'已结算':'每月28号结算'}}</view>
 					</view>
 					<view class="item">
 						<view class="font-22 color9">下月预估结算金额</view>
-						<view class="font-30 color2 py-2">暂无数据</view>
+						<view class="font-30 color2 py-2">{{userData.thisMonthDh.count?userData.thisMonthDh.count:'0.00'}}</view>
 						<view class="font-22 color2 pb-3 djs">待结算</view>
 					</view>
 				</view>
@@ -64,11 +76,11 @@
 					<image src="../../static/images/about-icon3.png" mode=""></image>
 					<view>关于我们</view>
 				</view>
-				<button class="item" v-if="userData.behavior==1"  @click="Router.navigateTo({route:{path:'/pages/identityInformation/identityInformation'}})">
+				<button class="item" v-if="userData.behavior==1" @click="Router.navigateTo({route:{path:'/pages/identityInformation/identityInformation'}})">
 					<image src="../../static/images/about-icon5.png" mode=""></image>
 					<view>身份信息</view>
 				</button>
-				<button class="item"  @click="Router.navigateTo({route:{path:'/pages/user-quanyi/user-quanyi'}})">
+				<button class="item" @click="Router.navigateTo({route:{path:'/pages/user-quanyi/user-quanyi'}})">
 					<image src="../../static/images/about-icon6.png" mode=""></image>
 					<view>我的权益</view>
 				</button>
@@ -80,13 +92,13 @@
 					<image src="../../static/images/icon01.png" mode=""></image>
 					<view>直播推广</view>
 				</view>
-				
-				
+
+
 			</view>
 		</view>
 
 		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
-			<view class="item"  @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
+			<view class="item" @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
 				<image src="../../static/images/nabar1.png" mode=""></image>
 				<view>产品</view>
 			</view>
@@ -116,60 +128,84 @@
 			return {
 				Router: this.$Router,
 				userData: {},
-				showAll:false,
-				isIphoneX:false
+				showAll: false,
+				isIphoneX: false,
+				canWithdraw:0,
+				isJs:false
 			}
 		},
 
 		onLoad() {
 			const self = this;
 			self.isIphoneX = wx.getStorageSync('isIphoneX');
+			
+		},
+		
+		onShow() {
+			const self = this;
 			self.$Utils.loadAll(['getUserData'], self);
 		},
 
 
 		methods: {
-			
-			showToast(){
+
+			showToast() {
 				const self = this;
 				uni.showModal({
-					title:'',
-					content:'功能开发中~',
-					showCancel:false
+					title: '',
+					content: '功能开发中~',
+					showCancel: false
 				})
 			},
-			
-			getClipboardData(){
+
+			getClipboardData() {
 				const self = this;
 				uni.setClipboardData({
-				    data: self.userData.user_no,
-				    success: function () {
-				        console.log('success');
-				    }
+					data: self.userData.user_no,
+					success: function() {
+						console.log('success');
+					}
 				});
 			},
-			
+
 
 			getUserData() {
 				const self = this;
 				const postData = {};
 				var data = new Date(); //本月
+				var thisDay = data.getDate();//当天的日期
 				data.setDate(1);
 				data.setHours(0);
 				data.setSeconds(0);
 				data.setMinutes(0);
 				var monthStart = parseInt(data.getTime() / 1000);
 				var nowTime = Date.parse(new Date()) / 1000;
+
+				var year = data.getFullYear();
+				var month = data.getMonth();
+				if (month == 0) {
+					month = 12;
+					year = year - 1;
+				}
+				if (month < 10) {
+					month = "0" + month;
+				}
+				var lastfirstDay = new Date(year + "/" + month + "/" + "01").getTime()/1000 ; //上个月的第一天
+				var myDate = new Date(year, month, 0);
+				var lastEndDay =new Date( year + "/" + month + "/" + myDate.getDate()+' 23:59:59').getTime()/1000; //上个月的最后一天
+				
+				console.log('thisDay',thisDay)
 				postData.tokenFuncName = 'getProjectToken';
 				postData.getAfter = {
-					FlowLog: {
+					tg: {
 						tableName: 'FlowLog',
 						middleKey: 'user_no',
 						key: 'user_no',
 						searchItem: {
 							status: 1,
 							count: ['>', 0],
-							type:2,
+							type: 2,
+							isPush:1,
 							create_time: ['between', [monthStart, nowTime]]
 						},
 						condition: '=',
@@ -180,8 +216,61 @@
 								{
 									status: 1,
 									count: ['>', 0],
-									type:2,
+									type: 2,
+									isPush:1,
 									create_time: ['between', [monthStart, nowTime]]
+								}
+							],
+						},
+					},
+					thisMonthDh: {
+						tableName: 'FlowLog',
+						middleKey: 'user_no',
+						key: 'user_no',
+						searchItem: {
+							status: 1,
+							count: ['>', 0],
+							type: 2,
+							isPush:2,
+							create_time: ['between', [monthStart, nowTime]]
+						},
+						condition: '=',
+						compute: {
+							count: [
+								'sum',
+								'count',
+								{
+									status: 1,
+									count: ['>', 0],
+									type: 2,
+									isPush:2,
+									create_time: ['between', [monthStart, nowTime]]
+								}
+							],
+						},
+					},
+					lastMonthDh: {
+						tableName: 'FlowLog',
+						middleKey: 'user_no',
+						key: 'user_no',
+						searchItem: {
+							status: 1,
+							count: ['>', 0],
+							type: 2,
+							isPush:2,
+							create_time: ['between', [lastfirstDay, lastEndDay]]
+						},
+						condition: '=',
+						compute: {
+							count: [
+								'sum',
+								'count',
+								{
+									status: 1,
+									count: ['>', 0],
+									type: 2,
+									isPush:2,
+									create_time: ['between', [lastfirstDay, lastEndDay]]
 								}
 							],
 						},
@@ -190,22 +279,30 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.userData = res.info.data[0]
-						if(self.userData.info.phone==''){
-							self.Router.redirectTo({route:{path:'/pages/login/login'}})
+						if (self.userData.info.phone == '') {
+							self.Router.redirectTo({
+								route: {
+									path: '/pages/login/login'
+								}
+							})
 							return
-						};
-						if(self.userData.parent_no==''){
-							// self.Router.redirectTo({route:{path:'/pages/invitation-code/invitation-code'}})
-							self.showAll = true
 						}else{
 							self.showAll = true
+						};
+						if(thisDay>28){
+							self.isJs = true;
+							
+							self.canWithdraw = (parseFloat(self.userData.info.balance)-parseFloat(self.userData.thisMonthDh.count)).toFixed(2)
+						}else{
+							self.canWithdraw = (parseFloat(self.userData.info.balance)-parseFloat(self.userData.thisMonthDh.count)-parseFloat(self.userData.lastMonthDh.count)).toFixed(2)
 						}
-					}
+						uni.setStorageSync('canWithdraw',self.canWithdraw)
+					};
 					self.$Utils.finishFunc('getUserData');
 				};
 				self.$apis.userGet(postData, callback);
 			},
-			
+
 			addFlowLog() {
 				const self = this;
 				const postData = {};
@@ -223,7 +320,7 @@
 				};
 				const callback = (res) => {
 					if (res.solely_code == 100000) {
-						
+
 					}
 				};
 				self.$apis.flowLogAdd(postData, callback);
@@ -278,8 +375,8 @@
 		height: 46rpx;
 		margin: 40rpx 0 20rpx;
 	}
-	
-	.itemBox .item:last-child image{
+
+	.itemBox .item:last-child image {
 		width: 45rpx;
 	}
 
@@ -300,5 +397,8 @@
 		color: #000000;
 		background: none;
 	}
-	.user{padding-bottom: 150rpx;}
+
+	.user {
+		padding-bottom: 150rpx;
+	}
 </style>

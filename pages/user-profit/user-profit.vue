@@ -1,7 +1,7 @@
 <template>
 	<view class="profit line-h">
 		<view class="head">
-			<view class="font-50 colorf font-w text-center pt-3 pb-2">{{userData.info?userData.info.balance:''}}</view>
+			<view class="font-50 colorf font-w text-center pt-3 pb-2">{{canWithdraw?canWithdraw:'0.00'}}</view>
 			<view class="font-22 text-center colorf pb-5">可提现金额(￥)</view>
 		</view>
 		<view class="proBox1 d-flex a-center j-sb rounded10 bg-white mx-3 shadow">
@@ -9,10 +9,10 @@
 				<view class="font-30 color6 py-2">{{userData.FlowLog.count?userData.FlowLog.count:0}}</view>
 				<view class="font-22 color6 pb-3">本月平台奖励</view>
 			</view>
-			<view class="item">
+			<!-- <view class="item">
 				<view class="font-30 color6 py-2">暂无数据</view>
 				<view class="font-22 color6 pb-3">本月推广佣金</view>
-			</view>
+			</view> -->
 			<view class="item">
 				<view class="btn2" @click="Router.navigateTo({route:{path:'/pages/user-Withdrawal/user-Withdrawal'}})">申请提现</view>
 			</view>
@@ -36,12 +36,11 @@
 						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
 					</view>
-					<view class="color6">佣金比例：暂无数据</view>
 				</view>
 				<view class="font-26 color2 djs" style="flex:1;text-align: right;">{{item.count}}</view>
 			</view>
 		</view>
-		<view class="proBox2 px-3"  v-else>
+		<view class="proBox2 px-3"  v-if="mainData.length==0">
 			<view style="font-weight: 700;width: 100%;text-align: center;margin-top: 200rpx;">暂无数据</view>
 		</view>
 	</view>
@@ -58,14 +57,18 @@
 				searchItem: {
 					thirdapp_id: 2,
 					type: 2,
-					count: ['>', 0]
-				}
+					count: ['>', 0],
+					isPush:['in',[1,2]],
+					
+				},
+				canWithdraw:0
 			}
 		},
 
 		onLoad() {
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+			self.canWithdraw = uni.getStorageSync('canWithdraw');
 			self.$Utils.loadAll(['getUserData', 'getMainData'], self);
 		},
 
@@ -118,7 +121,17 @@
 
 			changeLi(i) {
 				const self = this;
-				self.proLiCurrent = i;
+				if(self.proLiCurrent!=i){
+					self.proLiCurrent = i;
+					if(self.proLiCurrent==1){
+						self.searchItem.isPush = ['in',[1,2]]
+					}else if(self.proLiCurrent==2){
+						self.searchItem.isPush = 2
+					}else if(self.proLiCurrent==3){
+						self.searchItem.isPush = 1
+					};
+					self.getMainData(true)
+				}
 			},
 
 			getUserData() {
@@ -141,6 +154,7 @@
 							status: 1,
 							count: ['>', 0],
 							type: 2,
+							isPush:1,
 							create_time: ['between', [monthStart, nowTime]]
 						},
 						condition: '=',
@@ -152,6 +166,7 @@
 									status: 1,
 									count: ['>', 0],
 									type: 2,
+									isPush:1,
 									create_time: ['between', [monthStart, nowTime]]
 								}
 							],
@@ -181,7 +196,7 @@
 	}
 
 	.proBox1 .item {
-		width: 33.33%;
+		width: 50%;
 		text-align: center;
 		position: relative;
 	}
@@ -201,7 +216,7 @@
 	}
 
 	.btn2 {
-		margin: 0 35rpx;
+		margin: 0 auto;
 	}
 
 	.proLi {

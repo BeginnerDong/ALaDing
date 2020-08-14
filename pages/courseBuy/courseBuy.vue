@@ -139,7 +139,7 @@
 						user_no:uni.getStorageSync('user_info').user_no
 					}
 				});
-				if (self.distriData.length > 0) {
+				/* if (self.distriData.length > 0) {
 					for (var i = 0; i < self.distriData.length; i++) {
 						if (self.distriData[i].level == 1) {
 							postData.payAfter.push({
@@ -173,7 +173,7 @@
 							}, )
 						}
 					}
-				}
+				} */
 				const callback = (res) => {
 					if (res.solely_code == 100000) {
 						uni.setStorageSync('canClick', true);

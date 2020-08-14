@@ -20,7 +20,7 @@
 				<input type="digit" maxlength="10" v-model="submitData.count"/>
 			</view>
 			<view class="font-24 color6 pt-3 pb-5 d-flex j-sb px-3">
-				<view>本次可提现￥{{userInfoData.balance?userInfoData.balance:''}}</view>
+				<view>本次可提现￥{{canWithdraw}}</view>
 				<view style="color: #fed513;" @click="allCount">全部提现</view>
 			</view>
 			<button class="mt-5 submit mx-3"
@@ -39,7 +39,8 @@
 				userInfoData:{},
 				submitData:{
 					count:''
-				}
+				},
+				canWithdraw:0
 			}
 		},
 		
@@ -49,6 +50,7 @@
 		
 		onShow() {
 			const self = this;
+			self.canWithdraw = parseFloat(uni.getStorageSync('canWithdraw'));
 			self.$Utils.loadAll(['getUserInfoData'], self);
 		},
 		
@@ -56,7 +58,7 @@
 			
 			allCount(){
 				const self = this;
-				self.submitData.count = self.userInfoData.balance
+				self.submitData.count = self.canWithdraw
 			},
 			
 			submit() {
@@ -70,7 +72,7 @@
 				const pass = self.$Utils.checkComplete(self.submitData);
 				console.log('self.submitData',self.submitData)
 				if (pass) {
-					if(parseFloat(self.submitData.count)>parseFloat(self.userInfoData.balance)){
+					if(parseFloat(self.submitData.count)>parseFloat(self.canWithdraw)){
 						uni.setStorageSync('canClick', true);
 						self.$Utils.showToast('余额不足', 'none');
 						return

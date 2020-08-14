@@ -122,6 +122,8 @@
 		
 		onLoad(options) {
 			const self = this;
+			self.cartArray = self.$Utils.getStorageArray('cartData');
+			console.log('self.cartArray',self.cartArray)
 			self.$Utils.loadAll(['getMainData','getSliderData','getUserData'], self);
 		},
 		
@@ -158,12 +160,26 @@
 			addCar(index) {
 				const self = this;
 				var obj = self.mainData[index];
+				if(self.cartArray.length>0&&obj.commissionInfo.commissionShare!=self.cartArray[0].commissionInfo.commissionShare){
+					uni.showModal({
+						title:'提示',
+						content:'您只可以添加相同返佣比例的商品至购物车，当前购物车选定返佣比例为:'+self.cartArray[0].commissionInfo.commissionShare+'%',
+						showCancel:false,
+						confirmText:'我知道了',
+						success(res) {
+							if(res.confirm){
+								
+							}
+						}
+					});
+					return
+				};
 				var array = self.$Utils.getStorageArray('cartData');
 				for (var i = 0; i < array.length; i++) {
 					if (array[i].skuId == self.mainData[index].skuId) {
 						var target = array[i]
 					}
-				}
+				};
 				
 				console.log(target)
 				if (target) {
@@ -176,6 +192,7 @@
 				}
 				self.$Utils.showToast('已加入购物车', 'none');
 				self.$Utils.setStorageArray('cartData', target, 'skuId', 999);
+				self.cartArray = self.$Utils.getStorageArray('cartData');
 			},
 			
 			change(id){
