@@ -95,7 +95,7 @@
 				};
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
-						self.mainData = res.info.data[0]
+						self.mainData = res.info.data[0].info
 						self.mainData.anchorPlant = self.mainData.anchorPlant.split(',')
 						self.mainData.goodAt = self.mainData.goodAt.split(',')
 						self.mainData.goodAt = self.mainData.goodAt.join('+')
@@ -103,7 +103,7 @@
 					console.log('self.mainData', self.mainData)
 					self.$Utils.finishFunc('getMainData');
 				};
-				self.$apis.userInfoGet(postData, callback);
+				self.$apis.userGet(postData, callback);
 			},
 
 			getLogData() {
