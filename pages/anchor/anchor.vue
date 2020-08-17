@@ -90,7 +90,7 @@
 		
 		
 		<view style="height: 130rpx;"></view>
-		<view class="footer" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
+		<view class="footer" v-if="showNav" :style="isIphoneX?'padding-bottom: 60rpx;padding-top: 20rpx;height:auto':''">
 			<view class="item" @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
 				<image src="../../static/images/nabar1.png" mode=""></image>
 				<view>产品</view>
@@ -142,12 +142,16 @@
 				goodIndex:-1,
 				fansIndex:-1,
 				priceIndex:-1,
-				keywords:''
+				keywords:'',
+				showNav:true
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
+			if(options.type){
+				self.showNav = false
+			};
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.$Utils.loadAll(['getMainData','getSliderData','getGoodAtData'], self);
 		},

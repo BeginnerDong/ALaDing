@@ -24,7 +24,7 @@
 			<view class="font-28 color2 proLi" :class="proLiCurrent==3?'on':''" @click="changeLi(3)">平台奖励</view>
 		</view>
 
-		<view class="proBox2 px-3" v-if="proLiCurrent!=2">
+		<view class="proBox2 px-3">
 			<view class="item d-flex a-center py-3 borderB-f5" 
 				v-for="item of mainData" 
 				:key="item.id"
@@ -33,9 +33,11 @@
 				<view class="font-26 pl-2">
 					<view class="d-flex a-center pb-3">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
-						<view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
-						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view>
+						<!-- <view class="sign2" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==2">导师</view>
+						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].bahavior==1">主播</view> -->
+						
 					</view>
+					<view class="color6">{{item.trade_info}}</view>
 				</view>
 				<view class="font-26 color2 djs" style="flex:1;text-align: right;">{{item.count}}</view>
 			</view>
@@ -59,7 +61,7 @@
 					type: 2,
 					count: ['>', 0],
 					isPush:['in',[1,2]],
-					
+					status:1
 				},
 				canWithdraw:0
 			}

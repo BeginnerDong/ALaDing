@@ -16,6 +16,35 @@
 		<!-- 主播列表 -->
 		<view class="teamListBox px-3 bg-white mt-3">
 			<view class="item d-flex a-center py-3 borderB-f5" v-if="mainData.length>0" v-for="(item,index) of mainData" :key="item.id">
+				<image style="border-radius: 50%;overflow: hidden;" :src="item.headImgUrl?item.headImgUrl:''" mode=""></image>
+				<view class="font-26 pl-2 flex-1">
+					<view class="d-flex a-center pb-3">
+						<view class="color2 pr-2">{{item.nickname?item.nickname:''}}</view>
+						<view class="sign2" v-if="item.bahavior==2">导师</view>
+						<view class="sign3" v-if="item.bahavior==1">主播</view>
+						<view class="sign2 flex0" v-if="item.behavior==3">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
+						
+						<view class="sign2 flex0" v-if="item.behavior==4">
+							导师
+							<image src="../../static/images/start3.png" class="wh22"></image>
+							<image src="../../static/images/start3.png" class="wh22"></image>
+						</view>
+					</view>
+					<view class="color6">注册时间：{{item.create_time}}</view>
+				</view>
+				<view class="font-40 qj" :data-user_no="item.user_no"
+				 @click="Router.navigateTo({route:{path:'/pages/user-dataDetails/user-dataDetails?user_no='+$event.currentTarget.dataset.user_no}})">></view>
+			</view>
+			
+			<view style="font-weight: 700;width: 100%;text-align: center;" class="item  a-center py-3 borderB-f5" v-if="mainData.length==0">
+				<span>暂无数据</span>
+			</view>
+		</view>
+		<!-- <view class="teamListBox px-3 bg-white mt-3">
+			<view class="item d-flex a-center py-3 borderB-f5" v-if="mainData.length>0" v-for="(item,index) of mainData" :key="item.id">
 				<image style="border-radius: 50%;overflow: hidden;" :src="item.relationUser&&item.relationUser[0]?item.relationUser[0].headImgUrl:''" mode=""></image>
 				<view class="font-26 pl-2 flex-1">
 					<view class="d-flex a-center pb-3">
@@ -42,7 +71,7 @@
 			<view style="font-weight: 700;width: 100%;text-align: center;" class="item  a-center py-3 borderB-f5" v-if="mainData.length==0">
 				<span>暂无数据</span>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -54,6 +83,8 @@
 				searchItem:{
 					thirdapp_id:2,
 					//level:1
+					behavior:1,
+					user_type:0
 				},
 				mainData:[],
 				Router:this.$Router,
@@ -75,7 +106,7 @@
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
-			self.searchItem.child_no = ['not in',[uni.getStorageSync('user_info').user_no]]
+			//self.searchItem.child_no = ['not in',[uni.getStorageSync('user_info').user_no]]
 			if(options.id){
 				//self.titCurrent = options.id;
 				self.changeTit(options.id)
@@ -100,17 +131,7 @@
 				console.log(i)
 				if(i!=self.titCurrent){
 					self.titCurrent = i;
-					self.getBefore = {
-						relationUser:{
-							tableName:'User',
-							middleKey:'child_no',
-							key:'user_no',
-							searchItem:{
-								behavior:['in',[i]]
-							},
-							condition:'in',
-						}
-					};
+					self.searchItem.behavior = self.titCurrent;
 					self.getMainData(true)
 				}
 			},
@@ -131,7 +152,8 @@
 				postData.tokenFuncName = 'getProjectToken';
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
-				postData.getBefore = self.$Utils.cloneForm(self.getBefore);
+				/* postData.getBefore = self.$Utils.cloneForm(self.getBefore);
+				
 				postData.getAfter = {
 					relationUser:{
 						tableName:'User',
@@ -142,7 +164,7 @@
 						},
 						condition:'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData.push.apply(self.mainData, res.info.data);
@@ -150,7 +172,7 @@
 					self.$Utils.finishFunc('getMainData');
 			
 				};
-				self.$apis.distriGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 		}
 	}
@@ -161,6 +183,7 @@
 .head .on{color: #FF7B8E;font-weight: 700;}
 .head .on::before{content:'';width: 30rpx;height: 4rpx;background-color: #FF7B8E;position: absolute;bottom: 0;left: 50%;margin-left: -15rpx;}
 
+.wh22{width: 22rpx!important;height: 22rpx!important;}
 .w-25{width: 25%;}
 .teamListBox .item image{width: 100rpx;height: 100rpx;}
 .qj{color: #D5D5D5;width: 100rpx;text-align: right;height: 100rpx;line-height: 100rpx;}

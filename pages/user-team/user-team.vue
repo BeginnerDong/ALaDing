@@ -107,6 +107,7 @@
 				searchItem: {
 					thirdapp_id: 2,
 					//level: 1
+					user_type:0
 				},
 				mainData: [],
 				highUserData: [],
@@ -121,7 +122,7 @@
 		onLoad(options) {
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			//self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
+			self.searchItem.parent_no = uni.getStorageSync('user_info').user_no;
 			self.$Utils.loadAll(['getMainData', 'getHighUserData', 'getUserData','getDaoshiData','getZhuboData','getHehuoData','getSHehuoData'], self);
 		},
 
@@ -215,7 +216,7 @@
 				postData.tokenFuncName = 'getProjectToken';
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
-				postData.getBefore = {
+				/* postData.getBefore = {
 					relationUser: {
 						tableName: 'Distribution',
 						middleKey: 'user_no',
@@ -225,7 +226,7 @@
 						},
 						condition: 'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData.push.apply(self.mainData, res.info.data);
@@ -233,7 +234,7 @@
 					self.$Utils.finishFunc('getMainData');
 
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 			
 			
@@ -244,9 +245,11 @@
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = {
 					thirdapp_id:2,
-					behavior:2
+					behavior:2,
+					user_type:0,
+					parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 				};
-				postData.getBefore = {
+				/* postData.getBefore = {
 					relationUser: {
 						tableName: 'Distribution',
 						middleKey: 'user_no',
@@ -258,14 +261,14 @@
 						},
 						condition: 'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info) {
 						self.daoshiNum  =  res.info.total
 					};
 					self.$Utils.finishFunc('getDaoshiData');
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 			
 			getZhuboData() {
@@ -275,9 +278,11 @@
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = {
 					thirdapp_id:2,
-					behavior:1
+					behavior:1,
+					user_type:0,
+					parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 				};
-				postData.getBefore = {
+				/* postData.getBefore = {
 					relationUser: {
 						tableName: 'Distribution',
 						middleKey: 'user_no',
@@ -287,14 +292,14 @@
 						},
 						condition: 'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info) {
 						self.zhuboNum  =  res.info.total
 					};
 					self.$Utils.finishFunc('getZhuboData');
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 			
 			getHehuoData() {
@@ -304,9 +309,11 @@
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = {
 					thirdapp_id:2,
-					behavior:3
+					behavior:3,
+					user_type:0,
+					parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 				};
-				postData.getBefore = {
+				/* postData.getBefore = {
 					relationUser: {
 						tableName: 'Distribution',
 						middleKey: 'user_no',
@@ -316,14 +323,14 @@
 						},
 						condition: 'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info) {
 						self.hehuoNum  =  res.info.total
 					};
 					self.$Utils.finishFunc('getHehuoData');
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 			
 			getSHehuoData() {
@@ -333,9 +340,11 @@
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = {
 					thirdapp_id:2,
-					behavior:4
+					behavior:4,
+					user_type:0,
+					parent_no: ['in', [uni.getStorageSync('user_info').user_no]]
 				};
-				postData.getBefore = {
+				/* postData.getBefore = {
 					relationUser: {
 						tableName: 'Distribution',
 						middleKey: 'user_no',
@@ -345,14 +354,14 @@
 						},
 						condition: 'in',
 					}
-				};
+				}; */
 				const callback = (res) => {
 					if (res.info) {
 						self.sHehuoNum  =  res.info.total
 					};
 					self.$Utils.finishFunc('getSHehuoData');
 				};
-				self.$apis.userGet(postData, callback);
+				self.$apis.userCommonGet(postData, callback);
 			},
 
 		}

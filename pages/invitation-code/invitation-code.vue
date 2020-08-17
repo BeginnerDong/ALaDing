@@ -22,7 +22,7 @@
 				<input type="text" style="padding: 0 20rpx;font-weight: 700;" v-model="code" @blur="searchUser()"/>
 				<view class="font-24 pt-3 flex0">
 					<view class="txt" @click="maskShow()">没有邀请码？</view>
-					<view class="txt" @click="Router.redirectTo({route:{path:'/pages/anchor/anchor'}})">商家入口</view>
+					<view class="txt" @click="Router.redirectTo({route:{path:'/pages/anchor/anchor?type=only'}})">商家入口</view>
 				</view>
 			</view>
 			

@@ -65,7 +65,7 @@
 			<view class="bg-white rounded10 d-flex flex-column overflow-h chooseBox">
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in goodAtData" :key="index" @click="choose(item,'chooseGoodArray')">
-						<view>{{item}}{{Utils.inArray(item,chooseGoodArray)}}</view>
+						<view>{{item}}</view>
 						<image :src="Utils.inArray(item,chooseGoodArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
@@ -78,7 +78,7 @@
 			<view class="bg-white rounded10 d-flex flex-column overflow-h chooseBox">
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in plantData" :key="index" @click="choose(item,'choosePlantArray')">
-						<view>{{item}}{{Utils.inArray(item,choosePlantArray)}}</view>
+						<view>{{item}}</view>
 						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
@@ -91,7 +91,7 @@
 			<view class="bg-white rounded10 d-flex flex-column overflow-h chooseBox">
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in plantData" :key="index" @click="choose(item,'choosePlantArray')">
-						<view>{{item}}{{Utils.inArray(item,choosePlantArray)}}</view>
+						<view>{{item}}</view>
 						<image :src="Utils.inArray(item,choosePlantArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
@@ -130,7 +130,7 @@
 			<view class="bg-white rounded10 d-flex flex-column overflow-h chooseBox">
 				<view class="flexY flex-1">
 					<view class="flex1 font-26 py-4 bB-e1 px-3" v-for="(item,index) in instituteData" :key="index" @click="choose(item,'chooseInstituteArray')">
-						<view>{{item}}{{Utils.inArray(item,chooseInstituteArray)}}</view>
+						<view>{{item}}</view>
 						<image :src="Utils.inArray(item,chooseInstituteArray)>-1?'../../static/images/the-host-icon4.png':''" class="yes-icon"></image>
 					</view>
 				</view>
