@@ -3,15 +3,8 @@
 		<view class="color2 font-30 d-flex a-center text-center head shadow z-index10">
 			<view class="w-25 title position-relative" :class="titCurrent==1?'on':''" @click="changeTit(1)">主播</view>
 			<view class="w-25 title position-relative" :class="titCurrent==2?'on':''" @click="changeTit(2)">导师</view>
-			<view class="w-25 title position-relative flex0" :class="titCurrent==3?'on':''" @click="changeTit(3)">
-				导师
-				<image :src="titCurrent==3?start[1]:start[0]" class="wh26"></image>
-			</view>
-			<view class="w-25 title position-relative flex0" :class="titCurrent==4?'on':''" @click="changeTit(4)">
-				导师
-				<image :src="titCurrent==4?start[1]:start[0]" class="wh26"></image>
-				<image :src="titCurrent==4?start[1]:start[0]" class="wh26"></image>
-			</view>
+			<view class="w-25 title position-relative flex0" :class="titCurrent==3?'on':''" @click="changeTit(3)">导师A</view>
+			<view class="w-25 title position-relative flex0" :class="titCurrent==4?'on':''" @click="changeTit(4)">导师B</view>
 		</view>
 		<!-- 主播列表 -->
 		<view class="teamListBox px-3 bg-white mt-3">

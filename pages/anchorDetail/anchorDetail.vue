@@ -203,9 +203,9 @@
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								scrollShow:true,//新增是否显示滚动条，默认false
-								scrollAlign:'left',//滚动条初始位置
-								itemCount: 6
+								// scrollShow:true,//新增是否显示滚动条，默认false
+								// scrollAlign:'left',//滚动条初始位置
+								itemCount: 9
 							},
 							yAxis: {
 								gridType: 'solid',
@@ -220,8 +220,8 @@
 							legend: {
 								show: false
 							},
-							width: 300,
-							height: 150,
+							width: 410,
+							height: 160,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -252,11 +252,9 @@
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								//scrollShow:true,//新增是否显示滚动条，默认false
-								//scrollAlign:'left',//滚动条初始位置
-								itemCount: 6,
-								scrollShow:true,
-								scrollAlign:'left',
+								// scrollShow:true,//新增是否显示滚动条，默认false
+								scrollAlign:'left',//滚动条初始位置
+								itemCount: 9
 							},
 							yAxis: {
 								gridType: 'solid',
@@ -271,8 +269,8 @@
 								scrollAlign:'left',
 							},
 							
-							width: 300,
-							height: 150,
+							width: 410,
+							height: 160,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -304,7 +302,7 @@
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								scrollShow:true,//新增是否显示滚动条，默认false
+								// scrollShow:true,//新增是否显示滚动条，默认false
 								scrollAlign:'left',//滚动条初始位置
 								itemCount: 6
 							},
@@ -321,8 +319,8 @@
 							legend: {
 								show: false
 							},
-							width: 300,
-							height: 150,
+							width: 410,
+							height: 160,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -352,9 +350,9 @@
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								scrollShow:true,//新增是否显示滚动条，默认false
+								// scrollShow:true,//新增是否显示滚动条，默认false
 								scrollAlign:'left',//滚动条初始位置
-								itemCount: 6
+								itemCount: 8
 							},
 							yAxis: {
 								gridType: 'solid',
@@ -369,8 +367,8 @@
 							legend: {
 								show: false
 							},
-							width: 300,
-							height: 150,
+							width: 410,
+							height: 160,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -400,9 +398,9 @@
 							animation: true,
 							xAxis: {
 								disableGrid: true,
-								scrollShow:true,//新增是否显示滚动条，默认false
+								// scrollShow:true,//新增是否显示滚动条，默认false
 								scrollAlign:'left',//滚动条初始位置
-								itemCount: 6
+								itemCount: 8
 							},
 							yAxis: {
 								gridType: 'solid',
@@ -417,8 +415,8 @@
 							legend: {
 								show: false
 							},
-							width: 300,
-							height: 150,
+							width: 410,
+							height: 160,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -512,14 +510,14 @@
 	}
 
 	.qiun-charts {
-		width: 300px;
-		height: 150px;
+		width: 400px;
+		height: 180px;
 		
 		overflow: scroll;
 	}
 
 	.charts {
-		width: 300px;
-		height: 150px;
+		width: 400px;
+		height: 180px;
 	}
 </style>

@@ -8,16 +8,9 @@
 						<view class="pr-1 font-30">{{userData.nickname?userData.nickname:''}}</view>
 						<view class="sign1" v-if="userData.behavior==0">游客</view>
 						<view class="sign2 flex0" v-if="userData.behavior==2">导师</view>
-						<view class="sign2 flex0" v-if="userData.behavior==3">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
+						<view class="sign2 flex0" v-if="userData.behavior==3">导师A</view>
 						
-						<view class="sign2 flex0" v-if="userData.behavior==4">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
+						<view class="sign2 flex0" v-if="userData.behavior==4">导师B</view>
 						<view class="sign3" v-if="userData.behavior==1">主播</view>
 					</view>
 					<view class="d-flex a-center" v-if="userData.behavior>0">

@@ -32,7 +32,7 @@
 				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FF7B8E">
 					<block v-for="(item,index) in sliderData.mainImg">
 						<swiper-item>
-							<image :src="item.url"></image>
+							<image :src="item.url" class="rounded20"></image>
 						</swiper-item>
 					</block>
 				</swiper>

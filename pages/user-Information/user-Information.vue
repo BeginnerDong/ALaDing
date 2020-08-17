@@ -2,7 +2,7 @@
 	<view class="bg-white px-3 font-28">
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">头像</view>
-			<image :src="userData.headImgUrl!=''?userData.headImgUrl:''" style="border-radius: 0;overflow: hidden;" class="userImg"></image>
+			<image :src="userData.headImgUrl!=''?userData.headImgUrl:''" style="border-radius: 0;overflow: hidden;" class="userImg rounded-5"></image>
 		</view>
 		<view class="py-4 borderB-f5 d-flex a-center j-sb">
 			<view class="color6">昵称</view>

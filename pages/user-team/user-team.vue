@@ -13,18 +13,11 @@
 			</view>
 			<view class="text-center w-25 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=3'}})">
 				<view class="font-40 color2 pb-3 font-w">{{hehuoNum}}</view>
-				<view class="font-24 color2 flex0">导师
-					<image src="../../static/images/start2.png" class="wh26 mx-1"></image>
-					>
-				 </view>
+				<view class="font-24 color2 flex0">导师A ></view>
 			</view>
 			<view class="text-center w-25 zb position-relative" @click="Router.navigateTo({route:{path:'/pages/user-teamList/user-teamList?id=4'}})">
 				<view class="font-40 color2 pb-3 font-w">{{sHehuoNum}}</view>
-				<view class="font-24 color2 flex0">导师
-					<image src="../../static/images/start2.png" class="wh26 ml-1"></image>
-					<image src="../../static/images/start2.png" class="wh26 mr-1"></image>
-					>
-				 </view>
+				<view class="font-24 color2 flex0">导师B ></view>
 			</view>
 		</view>
 
@@ -37,16 +30,9 @@
 					<view class="d-flex a-center pb-3">
 						<view class="color2 pr-2">{{item.relationUser&&item.relationUser[0]?item.relationUser[0].nickname:''}}</view>
 						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==2">导师</view>
-						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==3">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==3">导师A</view>
 						
-						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==4">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
+						<view class="sign2 flex0" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==4">导师B</view>
 						<view class="sign3" v-if="item.relationUser&&item.relationUser[0]&&item.relationUser[0].behavior==1">主播</view>
 					</view>
 					<view class="color6 d-flex a-center">
@@ -71,15 +57,8 @@
 					<view class="d-flex a-center">
 						<view class="color2 pr-2">{{item.headImgUrl?item.nickname:''}}</view>
 						<view class="sign2 flex0" v-if="item.behavior==2">导师</view>
-						<view class="sign2 flex0"  v-if="item.behavior==3">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
-						<view class="sign2 flex0" v-if="item.behavior==4">
-							导师
-							<image src="../../static/images/start3.png" class="wh22"></image>
-							<image src="../../static/images/start3.png" class="wh22"></image>
-						</view>
+						<view class="sign2 flex0"  v-if="item.behavior==3">导师A</view>
+						<view class="sign2 flex0" v-if="item.behavior==4">导师B</view>
 						<view class="sign3" v-if="item.behavior==1">主播</view>
 					</view>
 					<view class="color6 d-flex a-center">
