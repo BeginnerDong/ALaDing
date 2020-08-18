@@ -187,7 +187,7 @@
 							type: 'line',
 							enableScroll: true, //开启图表拖拽功能
 							fontSize: 11,
-							colors: ['#FF7B8E', '#ba99ff'],
+							colors: ['#FF7B8E'],
 							legend: {
 								show: true
 							},
@@ -236,7 +236,7 @@
 							type: 'line',
 							enableScroll: true, //开启图表拖拽功能
 							fontSize: 11,
-							colors: ['#FF7B8E', '#ba99ff'],
+							colors: ['#FF7B8E'],
 							legend: {
 								show: true
 							},
@@ -264,13 +264,11 @@
 								max: 500,
 								format: (val) => {
 									return val.toFixed(0)
-								},
-								scrollShow:true,
-								scrollAlign:'left',
+								}
 							},
 							
 							width: 410,
-							height: 160,
+							height: 190,
 							extra: {
 								line: {
 									type: 'canvas'
@@ -286,7 +284,7 @@
 							type: 'line',
 							enableScroll: true, //开启图表拖拽功能
 							fontSize: 11,
-							colors: ['#FF7B8E', '#ba99ff'],
+							colors: ['#FF7B8E'],
 							legend: {
 								show: true
 							},
@@ -334,7 +332,7 @@
 							type: 'line',
 							enableScroll: true, //开启图表拖拽功能
 							fontSize: 11,
-							colors: ['#FF7B8E', '#ba99ff'],
+							colors: ['#FF7B8E'],
 							legend: {
 								show: true
 							},
@@ -382,7 +380,7 @@
 							type: 'line',
 							enableScroll: true, //开启图表拖拽功能
 							fontSize: 11,
-							colors: ['#FF7B8E', '#ba99ff'],
+							colors: ['#FF7B8E'],
 							legend: {
 								show: true
 							},
