@@ -2,10 +2,12 @@
 	<view class="user" v-if="showAll">
 		<view class="head line-h">
 			<view class="userCon px-3 py-3 d-flex a-center">
-				<image style="border-radius: 50%;overflow: hidden;" :src="userData.headImgUrl!=''?userData.headImgUrl:''" mode=""></image>
+				<!-- <image style="border-radius: 50%;overflow: hidden;" :src="userData.headImgUrl!=''?userData.headImgUrl:''" mode=""></image> -->
+				<view class="photo" style="overflow: hidden;border-radius: 50%;height: 120rpx;width: 120rpx;"><open-data type="userAvatarUrl"></open-data></view>
 				<view class="colorf ml-2 flex-1">
 					<view class="d-flex a-center pb-3">
-						<view class="pr-1 font-30">{{userData.nickname?userData.nickname:''}}</view>
+						<view class="font-30 pr-1"><open-data type="userNickName"></open-data></view>
+						<!-- <view class="pr-1 font-30">{{userData.nickname?userData.nickname:''}}</view> -->
 						<view class="sign1" v-if="userData.behavior==0">游客</view>
 						<view class="sign2 flex0" v-if="userData.behavior==2">导师</view>
 						<view class="sign2 flex0" v-if="userData.behavior==3">导师A</view>
