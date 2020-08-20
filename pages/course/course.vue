@@ -15,13 +15,10 @@
 							<view>导师</view>
 						</view>
 						<view class="sign flex" v-if="item.behavior==3">
-							<view>导师</view>
-							<image src="../../static/images/start.png" class="wh20"></image>
+							<view>导师A</view>
 						</view>
 						<view class="sign flex" v-if="item.behavior==4">
-							<view>导师</view>
-							<image src="../../static/images/start.png" class="wh20"></image>
-							<image src="../../static/images/start.png" class="wh20"></image>
+							<view>导师B</view>
 						</view>
 					</view>
 				</view>

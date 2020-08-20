@@ -178,8 +178,8 @@
 							visitAmounts.push(res.info.data[i].visitAmounts);
 							transfer.push(res.info.data[i].transfer);
 							self.anchorSession += parseInt( res.info.data[i].anchorSession);
-							console.log('pv',pv);
-							console.log('uv',uv);
+							// console.log('pv',pv);
+							// console.log('uv',uv);
 						};
 						self.canvasColumn = new uCharts({
 							$this: _self,
@@ -302,7 +302,7 @@
 								disableGrid: true,
 								// scrollShow:true,//新增是否显示滚动条，默认false
 								scrollAlign:'left',//滚动条初始位置
-								itemCount: 6
+								itemCount: 9
 							},
 							yAxis: {
 								gridType: 'solid',
