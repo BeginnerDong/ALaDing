@@ -1,5 +1,5 @@
 <template>
-	<view v-if="showAll">
+	<view>
 		<view class="bgImg position-fixed top-0 left-0 right-0">
 			<image src="../../static/images/the-invitationl-icon.png" mode=""></image>
 		</view>
@@ -58,7 +58,7 @@
 				codeCurrent:1,
 				code:'',
 				shareUser:{},
-				showAll:false
+				showAll:true
 			}
 		},
 		
@@ -66,11 +66,13 @@
 			const self = this;
 			if(options.scene){
 				var scene = decodeURIComponent(options.scene);
+				// self.code = scene;
+				// self.searchUser()
 				self.code = scene;
+				uni.clearStorageSync('user_token');
 				self.searchUser()
 			};
-			self.$Utils.loadAll(['getUserData'], self);
-			
+			// self.$Utils.loadAll(['getUserData'], self);
 		},
 		
 		
@@ -116,6 +118,10 @@
 			submit() {
 				const self = this;
 				uni.setStorageSync('canClick', false);
+				if(!self.code){
+				     self.$Utils.showToast('请填写邀请码', 'none');
+				     return;
+				};
 				if(self.userData.parent_no!=''){
 					uni.setStorageSync('canClick', true);
 					self.$Utils.showToast('您的账号已被邀请', 'none');
@@ -182,6 +188,7 @@
 					user_no:self.code
 				};
 				const callback = (res) => {
+					
 					if (res.solely_code==100000&&res.info.data.length > 0) {
 						self.codeCurrent = 2;
 						self.shareUser = res.info.data[0]
@@ -198,6 +205,9 @@
 							}
 						})
 					}
+					if(!self.userData){
+					    self.getUserData()
+					};
 				};
 				self.$apis.commonUserGet(postData, callback);
 			},
@@ -226,7 +236,7 @@
 			getUserData() {
 				const self = this;
 				const postData = {};
-				console.log(222)
+				// console.log(222)
 				postData.tokenFuncName = 'getProjectToken';
 				
 				const callback = (res) => {
